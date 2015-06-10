@@ -1,0 +1,13 @@
+.text-center
+  ul.pagination.ng-table-pagination
+    li(ng-repeat="page in pages" ng-class="{'disabled active': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}" ng-switch="page.type")
+
+      a(ng-switch-when="prev" ng-click="params.page(page.number)" href="")= '<'
+
+      a(ng-switch-when="next" ng-click="params.page(page.number)" href="")= '>'
+
+      a(ng-switch-when="more" ng-click="params.page(page.number)" href="")
+        | ...
+
+      a(ng-switch-default="" ng-click="params.page(page.number)" href="")
+        | {{ page.number }}
