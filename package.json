@@ -1,0 +1,32 @@
+{
+  "name": "ng-table-async",
+  "version": "0.0.0",
+  "description": "ngTable wrapper that offers some basic functionality for working with asynchronous tables.",
+  "main": "index.js",
+  "dependencies": {
+    "angular-ui-publisher": "^1.2.8",
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andresmatasuarez/ng-table-async.git"
+  },
+  "keywords": [
+    "ngTable",
+    "angular",
+    "async",
+    "table",
+    "ng-table",
+    "module"
+  ],
+  "author": "Andrés Mata Suárez <amatasuarez@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andresmatasuarez/ng-table-async/issues"
+  },
+  "homepage": "https://github.com/andresmatasuarez/ng-table-async"
+}
