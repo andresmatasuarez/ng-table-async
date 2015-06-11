@@ -22,5 +22,5 @@ gulp.task 'coffee', ->
   .pipe gulp.dest paths.dest
 
 # Public tasks
-gulp.task 'build', [ 'coffee' ]
+gulp.task 'build',   [ 'coffee' ]
 gulp.task 'default', [ 'build' ]
