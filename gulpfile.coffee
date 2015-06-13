@@ -24,6 +24,7 @@ BANNER = """
    * @link    #{ pkg.homepage }
    * @license #{ pkg.license }
    */
+
 """
 
 # Tasks global settings
@@ -68,10 +69,10 @@ gulp.task 'coffee', ->
   gulp.src config.paths.src.coffee
   .pipe sourcemaps.init()
   .pipe coffee()
+  .pipe headerTap BANNER
   .pipe gulp.dest config.paths.dest.coffee
   .pipe uglify()
   .pipe extReplace config.minExtensions.js
-  .pipe headerTap BANNER
   .pipe sourcemaps.write path.join('./', path.relative(config.paths.dest.coffee, config.paths.dest.sourcemaps))
   .pipe gulp.dest config.paths.dest.coffee
 
