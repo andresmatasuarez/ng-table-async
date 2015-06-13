@@ -6,7 +6,10 @@
     "Andrés Mata Suárez <amatasuarez@gmail.com>"
   ],
   "description": "ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.",
-  "main": "dist/index.js",
+  "main": [
+    "./dist/index.js",
+    "./dist/templates.html"
+  ],
   "keywords": [
     "angular",
     "ngTable",

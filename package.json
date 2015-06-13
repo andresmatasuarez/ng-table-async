@@ -2,7 +2,10 @@
   "name": "ng-table-async",
   "version": "0.0.0",
   "description": "ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.",
-  "main": "dist/index.js",
+  "main": [
+    "./dist/index.js",
+    "./dist/templates.html"
+  ],
   "dependencies": {
     "angular-ui-publisher": "^1.2.8",
     "coffee-script": "^1.9.3",
