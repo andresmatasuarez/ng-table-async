@@ -2,12 +2,15 @@ ngTableAsync
 =============================
 ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.
 
-[Basic usage demo](http://plnkr.co/edit/3PYJbl3fCkDfLsLmZzMp) 
+[Integral demo](http://plnkr.co/edit/3PYJbl3fCkDfLsLmZzMp)
 
 ## Requirements
 * [AngularJS](https://angularjs.org/)
 * [Lodash](https://lodash.com/)
 * [ngTable](http://ng-table.com/)
+
+## Optional requirements
+* [UI.Bootstrap](https://angular-ui.github.io/bootstrap)
 
 ## Installation
 `bower install ng-table-async`

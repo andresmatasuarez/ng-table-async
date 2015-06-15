@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "description": "ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.",
   "main": [
-    "./dist/index.js",
-    "./dist/templates.html"
+    "./dist/ng-table-async.js",
+    "./dist/ng-table-async.css",
+    "./dist/ng-table-async-tpls.js"
   ],
   "dependencies": {
     "angular-ui-publisher": "^1.2.8",
@@ -20,7 +21,8 @@
     "gulp-tap": "^0.1.3",
     "gulp-uglify": "^1.2.0",
     "lodash": "^3.9.3",
-    "run-sequence": "^1.1.0"
+    "run-sequence": "^1.1.0",
+    "gulp-ng-templates": "0.0.6"
   },
   "devDependencies": {},
   "scripts": {

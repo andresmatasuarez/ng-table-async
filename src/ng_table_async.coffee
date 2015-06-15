@@ -1,0 +1,154 @@
+'use strict'
+
+module = angular.module 'ngTableAsync'
+
+parseColumnContent = (column) ->
+  column  = angular.element column
+  content = column.html()
+
+  if content
+    contentElement = if _.isEmpty(column.find('content')) then column else column.find 'content'
+    content        = "<td>#{ contentElement[0].outerHTML }</td>"
+  else
+    contentAttr = column.attr 'content'
+    content     = if contentAttr then "<td ng-bind=\"#{ contentAttr }\"></td>" else "<td></td>"
+
+  content
+
+parseColumnHeader = (column) ->
+  column = angular.element column
+  header = if _.isEmpty(column.attr 'header') then '' else column.attr('header')
+
+  if header
+    header = "<th ng-bind=\"#{ header }\"></th>"
+  else
+    if !_.isEmpty column.find('content')
+      header = column.find('header').html()
+    header = "<th>#{ header }</th>"
+
+  header
+
+parseColumn = (column) ->
+  header  : parseColumnHeader  column
+  content : parseColumnContent column
+
+###*
+  @ngdoc    directive
+  @name     ngTableAsync
+  @module   ngTableAsync
+  @restrict E
+  @description
+  ngTable wrapper directive that offers some basic functionality for working with asynchronous tables.
+###
+module.directive 'ngTableAsync', ($q, ngTableParams) ->
+  restrict: 'E'
+  scope:
+    options: '='
+
+  template: (element, attrs) ->
+    columns          = element.find 'nta-column'
+    parsedColumns    = _.map columns, parseColumn
+    compiledHeaders  = _.map parsedColumns, 'header'
+    compiledContents = _.map parsedColumns, 'content'
+
+    # Determine 'No Data Available' template
+    ndaElement = element.find 'no-data'
+    ndaTemplate = ndaElement.html()
+    if !ndaTemplate
+      ndaTemplateUrl = ndaElement.attr 'template-url'
+      if ndaTemplateUrl
+        ndaTemplate = "<nta-no-data template-url=\"#{ndaTemplateUrl}\"></nta-no-data>"
+      else
+        ndaTemplate = "<nta-no-data text=\"#{ndaElement.attr 'text'}\"></nta-no-data>"
+
+    # Determine pager template
+    pagerElement     = element.find 'pager'
+    pagerTemplateUrl = pagerElement.attr 'template-url'
+    pagerTemplate    = "<nta-pager template-url=\"#{pagerTemplateUrl}\"></nta-pager>"
+
+    # Determine loading template
+    loadingElement     = element.find 'loading'
+    loadingTemplateUrl = loadingElement.attr 'template-url'
+    loadingTemplate    = "<nta-loading template-url=\"#{loadingTemplateUrl}\"></nta-loading>"
+
+    # Tried to extract this template to a separate file
+    # but there is no blocking way to load it.
+    # Sadly, this function cannot return a promise, so
+    # the $templateRequest alternative becomes useless.
+    "
+    <div class=\"container-fluid nta-container\" ng-show=\"tableParams.total()\">
+      <div class=\"row\">
+        <div class=\"col-md-12\">
+
+          <div ng-if=\"options.pagerOnTop\">
+            #{ pagerTemplate }
+          </div>
+
+          <div class=\"nta-content row\">
+            <div class=\"panel panel-default\">
+              <table ng-table=\"tableParams\" class=\"table ng-table ng-table-responsive nta-table\">
+                <thead>
+                  <tr>
+                    #{ compiledHeaders.join(' ') }
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat=\"item in $data\">
+                    #{ compiledContents.join(' ') }
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div ng-show=\"loading\" class=\"nta-loading-container\">
+              #{ loadingTemplate }
+            </div>
+
+          </div>
+
+          <div ng-if=\"options.pagerOnBottom\">
+            #{ pagerTemplate }
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div ng-show=\"!tableParams.total()\">
+      #{ ndaTemplate }
+    </div>
+
+    "
+
+  controller: ($scope, $element, ngTableAsyncDefaults) ->
+
+    $scope.options = _.merge
+      pagerOnTop         : ngTableAsyncDefaults.PAGER_ON_TOP
+      pagerOnBottom      : ngTableAsyncDefaults.PAGER_ON_BOTTOM
+      firstPage          : ngTableAsyncDefaults.FIRST_PAGE
+      pageSize           : ngTableAsyncDefaults.PAGE_SIZE
+    , $scope.options
+
+    $scope.mainScope = $scope
+
+    $scope.tableParams = new ngTableParams
+      page  : $scope.options.firstPage
+      count : $scope.options.pageSize
+    ,
+      # '$scope: $scope' line added to avoid
+      # "TypeError: Cannot read property '$on' of null"
+      # src: https://github.com/esvit/ng-table/issues/182
+      $scope: $scope
+
+      getData: ($defer, params) ->
+        $scope.loading = true
+
+        skip = (params.page() - 1) * params.count()
+        limit = params.count()
+
+        $scope.options.getPage skip, limit
+        .then (results) ->
+          $scope.tableParams.total results[0]
+          $defer.resolve results[1]
+          delete $scope.loading

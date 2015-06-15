@@ -1,0 +1,6 @@
+button.btn(class="{{size}} {{style}}" type="button" ng-click="do()")
+  span(ng-if="icon")
+    span(class="{{icon}}")
+    span(ng-if="label")
+      | &nbsp;
+  span(ng-bind="label")

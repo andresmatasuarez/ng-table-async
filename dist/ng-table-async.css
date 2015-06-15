@@ -1,0 +1,56 @@
+ng-table-async .nta-content .panel {
+  margin-bottom: 0;
+}
+
+/* _ng_table_async_loading template */
+ng-table-async .nta-content {
+  position: relative;
+}
+
+ng-table-async .nta-loading-container {
+  position    : absolute;
+  top         : 0;
+  left        : 0;
+  right       : 0;
+  bottom      : 0;
+  background  : rgba(255,255,255,0.5);
+  color       : #888;
+}
+
+ng-table-async .nta-loading {
+  height: 100%;
+}
+
+ng-table-async .nta-loading-loader {
+  position   : relative;
+  top        : 50%;
+  transform  : translate(0, -50%);
+  text-align : center;
+  font-size  : 3em;
+}
+
+ng-table-async .nta-loading-spinner {
+  -webkit-animation: spin 1s infinite linear;
+          animation: spin 1s infinite linear;
+}
+
+ng-table-async @-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
