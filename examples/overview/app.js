@@ -48,13 +48,16 @@ app.controller('MainController', function($scope, $q, $timeout){
         method : function(user){
           console.log('Incrementing...');
           return simulatePromiseDelay(function(){
-            return user.counter += 1;
+            user.counter += 1;
           });
         },
         reload: false
       },
       reset: function(user){
-        user.counter = 0;
+        console.log('Resetting...');
+        return simulatePromiseDelay(function(){
+          user.counter = 0;
+        });
       },
       remove: {
         method : function(user){
