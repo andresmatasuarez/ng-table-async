@@ -11,13 +11,14 @@ uglify      = require 'gulp-uglify'
 htmlmin     = require 'gulp-htmlmin'
 concat      = require 'gulp-concat'
 jade        = require 'gulp-jade'
+minifyCss   = require 'gulp-minify-css'
 ngTemplates = require 'gulp-ng-templates'
 sourcemaps  = require 'gulp-sourcemaps'
 extReplace  = require 'gulp-ext-replace'
 pkg         = require './package.json'
 
 BANNER = """
-  /**
+  /*
    * #{ pkg.name }
    * #{ pkg.description }
    * @author  #{ pkg.author }
@@ -44,6 +45,7 @@ config =
     dest:
       root       : './dist'
       coffee     : './dist'
+      css        : './dist'
       templates  : './dist'
       sourcemaps : './dist'
 
@@ -60,6 +62,7 @@ config =
   minExtensions:
     js   : '.min.js'
     html : '.min.html'
+    css  : '.min.css'
 
 appendTap = (content, atStart) ->
   atStart = if _.isUndefined(atStart) then false else atStart
@@ -87,14 +90,22 @@ gulp.task 'coffee', ->
   .pipe headerTap BANNER
   .pipe gulp.dest config.paths.dest.coffee
   .pipe uglify()
+  .pipe headerTap BANNER
   .pipe extReplace config.minExtensions.js
   .pipe sourcemaps.write path.join('./', path.relative(config.paths.dest.coffee, config.paths.dest.sourcemaps))
   .pipe gulp.dest config.paths.dest.coffee
 
 gulp.task 'css', ->
   gulp.src config.paths.src.css
+  .pipe sourcemaps.init()
   .pipe concat config.css.filename
-  .pipe gulp.dest config.paths.dest.root
+  .pipe headerTap BANNER
+  .pipe gulp.dest config.paths.dest.css
+  .pipe minifyCss()
+  .pipe headerTap BANNER
+  .pipe extReplace config.minExtensions.css
+  .pipe sourcemaps.write path.join('./', path.relative(config.paths.dest.css, config.paths.dest.sourcemaps))
+  .pipe gulp.dest config.paths.dest.css
 
 # gulp.task 'templates', ->
 #   gulp.src config.paths.src.templates
