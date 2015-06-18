@@ -10,9 +10,9 @@ module = angular.module 'ngTableAsync'
   @description
   Renders a pager for ngTableAsync directive
 ###
-module.directive 'ntaPager', ->
+module.directive 'ntaPager', (ngTableAsyncDefaults) ->
   restrict: 'E'
   template: (element, attrs) ->
     if !attrs.templateUrl or attrs.templateUrl == 'undefined'
-      attrs.templateUrl = '_ng_table_async_pager.html'
+      attrs.templateUrl = ngTableAsyncDefaults.DEFAULT_TEMPLATES.NTA_PAGER
     "<div ng-table-pagination=\"tableParams\" template-url=\"'#{attrs.templateUrl}'\"></div>"

@@ -29,25 +29,34 @@ parseDialogAttribute = (d) ->
   @description
   Renders an action button for ngTableAsync directive
 ###
-module.directive 'ntaAction', ->
+module.directive 'ntaAction', (ngTableAsyncDefaults) ->
   restrict : 'E'
   scope    : true
   templateUrl: (element, attrs) ->
     if attrs.templateUrl and attrs.templateUrl != 'undefined'
       attrs.templateUrl
     else
-      '_ng_table_async_action.html'
+      ngTableAsyncDefaults.DEFAULT_TEMPLATES.NTA_ACTION
 
   controller: ($scope, $attrs, $q, $injector) ->
-    action = $scope.options.actions[$attrs.action]
-    method = if _.isFunction action then action else action.method
-    reload = if _.isUndefined action.reload then true else action.reload
-    dialog = parseDialogAttribute action.dialog
+    defaults = ngTableAsyncDefaults
+    action   = $scope.options.actions[$attrs.action]
+    method   = if _.isFunction action then action else action.method
+    reload   = if _.isUndefined action.reload then true else action.reload
+    dialog   = parseDialogAttribute action.dialog
 
     $scope.label  = $attrs.label
-    $scope.size   = if $attrs.size in [ 'xs', 'sm', 'lg' ] then "btn-#{$attrs.size}" else ''
-    $scope.style  = if $attrs.style and $attrs.style != 'undefined' then "btn-#{$attrs.style}" else 'btn-default'
     $scope.icon   = if $attrs.icon and $attrs.icon != 'undefined' then $attrs.icon else undefined
+
+    if $attrs.size in defaults.SUPPORTED_VALUES.NTA_ACTION_SIZE
+      $scope.size = "btn-#{$attrs.size}"
+    else
+      $scope.size = defaults.DEFAULT_VALUES.NTA_ACTION_SIZE
+
+    if $attrs.style in defaults.SUPPORTED_VALUES.NTA_ACTION_STYLE
+      $scope.style = "btn-#{$attrs.style}"
+    else
+      $scope.style = "btn-#{defaults.DEFAULT_VALUES.NTA_ACTION_STYLE}"
 
     performAction = (item) ->
       $scope.mainScope.loading = true

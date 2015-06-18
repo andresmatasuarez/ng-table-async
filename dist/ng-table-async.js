@@ -23,7 +23,7 @@
     column = angular.element(column);
     content = column.html();
     if (content) {
-      contentElement = _.isEmpty(column.find('content')) ? column : column.find('content');
+      contentElement = _.isEmpty(column.find('nta-content')) ? column : column.find('nta-content');
       content = "<td>" + contentElement[0].outerHTML + "</td>";
     } else {
       contentAttr = column.attr('content');
@@ -39,8 +39,8 @@
     if (header) {
       header = "<th ng-bind=\"" + header + "\"></th>";
     } else {
-      if (!_.isEmpty(column.find('content'))) {
-        header = column.find('header').html();
+      if (!_.isEmpty(column.find('nta-content'))) {
+        header = column.find('nta-header').html();
       }
       header = "<th>" + header + "</th>";
     }
@@ -142,16 +142,31 @@
   module.value('ngTableAsyncDefaults', {
     FIRST_PAGE: 1,
     PAGE_SIZE: 10,
-    NO_DATA_AVAILABLE_TEXT: 'No available results to show',
+    NO_DATA_TEXT: 'No available results to show',
     PAGER_ON_TOP: false,
-    PAGER_ON_BOTTOM: true
+    PAGER_ON_BOTTOM: true,
+    SUPPORTED_VALUES: {
+      NTA_ACTION_SIZE: ['xs', 'sm', 'lg'],
+      NTA_ACTION_STYLE: ['default', 'primary', 'success', 'info', 'warning', 'danger', 'link']
+    },
+    DEFAULT_VALUES: {
+      NTA_ACTION_SIZE: '',
+      NTA_ACTION_STYLE: 'default'
+    },
+    DEFAULT_TEMPLATES: {
+      NTA_ACTION: '_ng_table_async_action.html',
+      NTA_LOADING: '_ng_table_async_loading.html',
+      NTA_NO_DATA: '_ng_table_async_no_data.html',
+      NTA_PAGER: '_ng_table_async_pager.html'
+    }
   });
 
 }).call(this);
 
 (function() {
   'use strict';
-  var module, parseDialogAttribute;
+  var module, parseDialogAttribute,
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   module = angular.module('ngTableAsync');
 
@@ -197,7 +212,7 @@
     Renders an action button for ngTableAsync directive
    */
 
-  module.directive('ntaAction', function() {
+  module.directive('ntaAction', function(ngTableAsyncDefaults) {
     return {
       restrict: 'E',
       scope: true,
@@ -205,19 +220,28 @@
         if (attrs.templateUrl && attrs.templateUrl !== 'undefined') {
           return attrs.templateUrl;
         } else {
-          return '_ng_table_async_action.html';
+          return ngTableAsyncDefaults.DEFAULT_TEMPLATES.NTA_ACTION;
         }
       },
       controller: function($scope, $attrs, $q, $injector) {
-        var $modal, action, dialog, error, method, performAction, performActionWithDialog, ref, reload, triggerAction;
+        var $modal, action, defaults, dialog, error, method, performAction, performActionWithDialog, ref, ref1, reload, triggerAction;
+        defaults = ngTableAsyncDefaults;
         action = $scope.options.actions[$attrs.action];
         method = _.isFunction(action) ? action : action.method;
         reload = _.isUndefined(action.reload) ? true : action.reload;
         dialog = parseDialogAttribute(action.dialog);
         $scope.label = $attrs.label;
-        $scope.size = (ref = $attrs.size) === 'xs' || ref === 'sm' || ref === 'lg' ? "btn-" + $attrs.size : '';
-        $scope.style = $attrs.style && $attrs.style !== 'undefined' ? "btn-" + $attrs.style : 'btn-default';
         $scope.icon = $attrs.icon && $attrs.icon !== 'undefined' ? $attrs.icon : void 0;
+        if (ref = $attrs.size, indexOf.call(defaults.SUPPORTED_VALUES.NTA_ACTION_SIZE, ref) >= 0) {
+          $scope.size = "btn-" + $attrs.size;
+        } else {
+          $scope.size = defaults.DEFAULT_VALUES.NTA_ACTION_SIZE;
+        }
+        if (ref1 = $attrs.style, indexOf.call(defaults.SUPPORTED_VALUES.NTA_ACTION_STYLE, ref1) >= 0) {
+          $scope.style = "btn-" + $attrs.style;
+        } else {
+          $scope.style = "btn-" + defaults.DEFAULT_VALUES.NTA_ACTION_STYLE;
+        }
         performAction = function(item) {
           $scope.mainScope.loading = true;
           return $q.when().then(function() {
@@ -282,14 +306,14 @@
     Renders the 'loading table' markup for ngTableAsync directive
    */
 
-  module.directive('ntaLoading', function() {
+  module.directive('ntaLoading', function(ngTableAsyncDefaults) {
     return {
       restrict: 'E',
       templateUrl: function(element, attrs) {
         if (attrs.templateUrl && attrs.templateUrl !== 'undefined') {
           return attrs.templateUrl;
         } else {
-          return '_ng_table_async_loading.html';
+          return ngTableAsyncDefaults.DEFAULT_TEMPLATES.NTA_LOADING;
         }
       }
     };
@@ -313,7 +337,7 @@
     Renders a 'No available data' for ngTableAsync directive
    */
 
-  module.directive('ntaNoData', function() {
+  module.directive('ntaNoData', function(ngTableAsyncDefaults) {
     return {
       restrict: 'E',
       scope: true,
@@ -321,12 +345,12 @@
         if (attrs.templateUrl && attrs.templateUrl !== 'undefined') {
           return attrs.templateUrl;
         } else {
-          return '_ng_table_async_no_data.html';
+          return ngTableAsyncDefaults.DEFAULT_TEMPLATES.NTA_NO_DATA;
         }
       },
-      controller: function($scope, $element, $attrs, ngTableAsyncDefaults) {
+      controller: function($scope, $element, $attrs) {
         if (!$attrs.text || $attrs.text === 'undefined') {
-          $attrs.text = ngTableAsyncDefaults.NO_DATA_AVAILABLE_TEXT;
+          $attrs.text = ngTableAsyncDefaults.NO_DATA_TEXT;
         }
         return $scope.text = $attrs.text;
       }
@@ -351,12 +375,12 @@
     Renders a pager for ngTableAsync directive
    */
 
-  module.directive('ntaPager', function() {
+  module.directive('ntaPager', function(ngTableAsyncDefaults) {
     return {
       restrict: 'E',
       template: function(element, attrs) {
         if (!attrs.templateUrl || attrs.templateUrl === 'undefined') {
-          attrs.templateUrl = '_ng_table_async_pager.html';
+          attrs.templateUrl = ngTableAsyncDefaults.DEFAULT_TEMPLATES.NTA_PAGER;
         }
         return "<div ng-table-pagination=\"tableParams\" template-url=\"'" + attrs.templateUrl + "'\"></div>";
       }

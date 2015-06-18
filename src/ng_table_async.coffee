@@ -7,7 +7,7 @@ parseColumnContent = (column) ->
   content = column.html()
 
   if content
-    contentElement = if _.isEmpty(column.find('content')) then column else column.find 'content'
+    contentElement = if _.isEmpty(column.find('nta-content')) then column else column.find 'nta-content'
     content        = "<td>#{ contentElement[0].outerHTML }</td>"
   else
     contentAttr = column.attr 'content'
@@ -22,8 +22,8 @@ parseColumnHeader = (column) ->
   if header
     header = "<th ng-bind=\"#{ header }\"></th>"
   else
-    if !_.isEmpty column.find('content')
-      header = column.find('header').html()
+    if !_.isEmpty column.find('nta-content')
+      header = column.find('nta-header').html()
     header = "<th>#{ header }</th>"
 
   header
