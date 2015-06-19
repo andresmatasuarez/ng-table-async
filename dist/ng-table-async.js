@@ -98,12 +98,12 @@
         $scope.options = _.merge({
           pagerOnTop: ngTableAsyncDefaults.PAGER_ON_TOP,
           pagerOnBottom: ngTableAsyncDefaults.PAGER_ON_BOTTOM,
-          firstPage: ngTableAsyncDefaults.FIRST_PAGE,
+          defaultPage: ngTableAsyncDefaults.DEFAULT_PAGE,
           pageSize: ngTableAsyncDefaults.PAGE_SIZE
         }, $scope.options);
         $scope.mainScope = $scope;
         return $scope.tableParams = new ngTableParams({
-          page: $scope.options.firstPage,
+          page: $scope.options.defaultPage,
           count: $scope.options.pageSize
         }, {
           $scope: $scope,
@@ -140,7 +140,7 @@
    */
 
   module.value('ngTableAsyncDefaults', {
-    FIRST_PAGE: 1,
+    DEFAULT_PAGE: 1,
     PAGE_SIZE: 10,
     NO_DATA_TEXT: 'No available results to show',
     PAGER_ON_TOP: false,

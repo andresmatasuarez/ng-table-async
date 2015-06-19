@@ -126,14 +126,14 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
     $scope.options = _.merge
       pagerOnTop         : ngTableAsyncDefaults.PAGER_ON_TOP
       pagerOnBottom      : ngTableAsyncDefaults.PAGER_ON_BOTTOM
-      firstPage          : ngTableAsyncDefaults.FIRST_PAGE
+      defaultPage        : ngTableAsyncDefaults.DEFAULT_PAGE
       pageSize           : ngTableAsyncDefaults.PAGE_SIZE
     , $scope.options
 
     $scope.mainScope = $scope
 
     $scope.tableParams = new ngTableParams
-      page  : $scope.options.firstPage
+      page  : $scope.options.defaultPage
       count : $scope.options.pageSize
     ,
       # '$scope: $scope' line added to avoid

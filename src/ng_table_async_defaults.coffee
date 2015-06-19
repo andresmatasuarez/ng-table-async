@@ -9,7 +9,7 @@ module = angular.module 'ngTableAsync'
   @description Default settings for ngTableAsync
 ###
 module.value 'ngTableAsyncDefaults',
-  FIRST_PAGE         : 1
+  DEFAULT_PAGE       : 1
   PAGE_SIZE          : 10
   NO_DATA_TEXT       : 'No available results to show'
   PAGER_ON_TOP       : false
