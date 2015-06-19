@@ -2,7 +2,7 @@ ngTableAsync
 =============================
 **[ngTable](http://ng-table.com/)** wrapper that offers some base functionality and abstractions for working with asynchronous tables. It serves as a way to avoid table boilerplate code, by declaring only those things relevant in our context.
 
-It's specially useful for developers, so they can come out with a fully functional asynchronous table with a default Bootstrap style in very few quick steps, when **behaviour has more priority than markup**.
+It's specially useful for backoffice/dashboard developers, so they can come out with a fully functional asynchronous table with a default Bootstrap style in very few quick steps, where **behaviour has more priority than markup**.
 
 This module **in no way** intends to be a replacement for **ngTable**, but an enhancement. If it doesn't satisfy your needs, go back to **ngTable**.
 
@@ -55,7 +55,7 @@ By looking at the above example, we can infer that:
 #### Directive: `ntaAction`
 To declare action buttons for each row element in the table. It is only allowed as child of `nta-header` or `nta-content` elements. Supports the following attributes configuration:
 * **`label`**: Action button label
-* **`action`**: Key referencing an action in the actions array of **ngTableAsync**. See [Table configuration](#) section for more information.
+* **`action`**: Key referencing an action in the actions array of **ngTableAsync**. See [Configuration object](#configuration-object) section for more information.
 * **`size`**: Action button size, using Bootstrap size suffixes. Suppported values: `xs`, `sm`, `lg`. *Defaults to default button size*.
 * **`icon`**: Action Button icon class. *Defaults to no icon*.
 * **`style`**: Action button style, using Bootstrap style suffixes. Supported values: `default`, `primary`, `success`, `info`, `warning`, `danger`, `link`. *Defaults to `default`*.
@@ -75,7 +75,6 @@ To declare action buttons for each row element in the table. It is only allowed 
   ...
 </ng-table-async>
 ```
-
 
 #### Directive: `ntaLoading`
 To render the 'Loading table' markup. Supports the following attributes configuration:
@@ -108,7 +107,7 @@ To render the markup to show when table is empty. Supports the following attribu
 #### Directive: `ntaPager`
 To render the pagination markup template. Supports the following attribute configuration:
 * **`template-url`**: Markup template url. Defaults to `'_ng_table_async_pager.html'`
-    > When overriding this template, please refer to **ngTable**'s documentation on how to override its pager.
+  > When overriding this template, please refer to **ngTable**'s documentation on how to override its pager.
 
 ```html
 <ng-table-async>
@@ -118,6 +117,63 @@ To render the pagination markup template. Supports the following attribute confi
 </ng-table-async>
 ```
 > NOTE: `ntaPager` directive is **only** used to override pager's template. **Neither its location nor the times it is included in the markup** have any kind of influence in the resulting table.
+
+## Configuration object
+**ngTableAsync** accepts an `options` attribute for initialization of table-level settings:
+```html
+<ng-table-async options="tableOptions">
+  ...
+</ng-table-async>
+```
+Of course, `tableOptions` should be exposed in the scope where **ngTableAsync** is being created, and it can contain any of the following properties:
+```javascript
+$scope.tableOptions = {
+  defaultPage   : 3,     // Default selected page.     Defaults to 1.
+  pageSize      : 5,     // Table page size.           Defaults to 10.
+  pagerOnTop    : true,  // Enable pager above table.  Defaults to false.
+  pagerOnBottom : false, // Enable pager below table.  Defaults to true.
+
+  // REQUIRED
+  // Function to retrieve current page's data, in terms of 'skip' and 'limit' params
+  // skip: rows to skip from the beggining of the data.
+  // limit: quantity of rows to return.
+  // Returns a promise of an array of data.
+  getPage: function(skip, limit){
+    returns API.items.getPage(skip, limit);
+  },
+
+  // Actions
+  // Each action can be a Function or an Object.
+  actions: {
+
+    // Action definition using Object form
+    actionName: {
+      reload: false,  // Reload table on this action's completion. Defaults to true.
+      method: function(item){
+        // Action to perform on row item.
+        // If a promise is not returned, it will be promisified internally.
+        // ngTableAsync will render the 'Loading table' markup until action completion.
+      },
+
+      // If action requires confirmation dialog.
+      // Action method will only be triggered on dialog acceptance.
+      // IMPORTANT: UI.Bootstrap should be included for dialog to work.
+      dialog: {
+          templateUrl : '_my_action_dialog.html',
+          params      : {}                         // Params to be passed to dialog template scope.
+          onCancel    : function(item, params){}   // To be called on dialog cancel
+      }
+    },
+
+    // Action definition using Function form.
+    // Simplest form to define an action.
+    // Table will be reload on completion, and no dialog confirmation is required.
+    // Same as: anotherActionName: { method: function(item){} }
+    anotherActionName: function(item){},
+  }
+};
+```
+
 
 ## Examples
   TODO Write examples for each config
