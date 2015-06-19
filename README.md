@@ -179,7 +179,14 @@ $scope.tableOptions = {
   TODO Write examples for each config
 
 ## Development
-  TODO Write how to contribute and develop
+1. Fork repo
+2. `npm install && bower install`
+3. `npm install gulp -g`
+4. `gulp` - Watches for changes in `src` directory and reruns tasks on each modified file. Outputs are in `dist` directory.
+4. Write contribution
+5. Write tests
+6. Submit Pull Request
 
 ## TODO
+* Tests
 * Global override of templates.
