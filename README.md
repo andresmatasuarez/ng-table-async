@@ -8,12 +8,21 @@ This module **in no way** intends to be a replacement for **ngTable**, but an en
 
 [Integral demo](http://plnkr.co/edit/3PYJbl3fCkDfLsLmZzMp)
 
+## Index
+1. [Requirements](#requirements)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Configuration object](#configuration-object)
+5. [Examples](#examples)
+6. [Development](#development)
+7. [TODO](#todo)
+
 ## Requirements
 * [AngularJS](https://angularjs.org/)
 * [Lodash](https://lodash.com/)
 * [ngTable](http://ng-table.com/)
 
-## Optional requirements
+### Optional requirements
 * [UI.Bootstrap](https://angular-ui.github.io/bootstrap)
 
 ## Installation
@@ -173,7 +182,6 @@ $scope.tableOptions = {
   }
 };
 ```
-
 
 ## Examples
   TODO Write examples for each config
