@@ -23,7 +23,9 @@
     "lodash": "^3.9.3",
     "run-sequence": "^1.1.0",
     "gulp-ng-templates": "0.0.6",
-    "gulp-minify-css": "^1.1.6"
+    "gulp-minify-css": "^1.1.6",
+    "event-stream": "^3.3.1",
+    "through-pipes": "0.0.4"
   },
   "devDependencies": {},
   "scripts": {

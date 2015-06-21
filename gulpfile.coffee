@@ -4,6 +4,8 @@ _           = require 'lodash'
 path        = require 'path'
 del         = require 'del'
 runSequence = require 'run-sequence'
+eventStream = require 'event-stream'
+through     = require 'through-pipes'
 gulp        = require 'gulp'
 tap         = require 'gulp-tap'
 coffee      = require 'gulp-coffee'
@@ -57,7 +59,7 @@ config =
 
   templates:
     filename : 'ng-table-async-tpls.js'
-    module   : 'ngTableAsync.templates'
+    module   : 'ngTableAsync'
 
   minExtensions:
     js   : '.min.js'
@@ -79,22 +81,19 @@ appendTap = (content, atStart) ->
     t
 
 headerTap = (header) -> appendTap header, true
-footerTap = (footer) -> appendTap footer
+footerTap = (header) -> appendTap header
+
+uglifyProcess = (dest, sourcemapDest) ->
+  through (readable) ->
+    readable
+    .pipe sourcemaps.init()
+    .pipe uglify()
+    .pipe headerTap BANNER
+    .pipe extReplace config.minExtensions.js
+    .pipe sourcemaps.write path.join('./', path.relative(dest, sourcemapDest))
+    .pipe gulp.dest dest
 
 # Internal tasks
-gulp.task 'coffee', ->
-  gulp.src config.paths.src.coffee
-  .pipe sourcemaps.init()
-  .pipe coffee()
-  .pipe concat config.coffee.filename
-  .pipe headerTap BANNER
-  .pipe gulp.dest config.paths.dest.coffee
-  .pipe uglify()
-  .pipe headerTap BANNER
-  .pipe extReplace config.minExtensions.js
-  .pipe sourcemaps.write path.join('./', path.relative(config.paths.dest.coffee, config.paths.dest.sourcemaps))
-  .pipe gulp.dest config.paths.dest.coffee
-
 gulp.task 'css', ->
   gulp.src config.paths.src.css
   .pipe sourcemaps.init()
@@ -107,34 +106,35 @@ gulp.task 'css', ->
   .pipe sourcemaps.write path.join('./', path.relative(config.paths.dest.css, config.paths.dest.sourcemaps))
   .pipe gulp.dest config.paths.dest.css
 
-# gulp.task 'templates', ->
-#   gulp.src config.paths.src.templates
-#   .pipe jade pretty: true
-#   .pipe headerTap (file) -> "<script type=\"text/ng-template\" id=\"#{path.basename file.path}\">"
-#   .pipe footerTap '\n</script>'
-#   .pipe concat config.filenames.templates
-#   .pipe gulp.dest config.paths.dest.templates
-#   .pipe htmlmin
-#     collapseWhitespace : true
-#     processScripts     : [ 'text/ng-template' ]
-#   .pipe extReplace config.minExtensions.html
-#   .pipe gulp.dest config.paths.dest.templates
+gulp.task 'coffee', ->
+  gulp.src config.paths.src.coffee
+  .pipe coffee()
+  .pipe concat config.coffee.filename
+  .pipe headerTap BANNER
+  .pipe gulp.dest config.paths.dest.coffee
+  .pipe uglifyProcess(config.paths.dest.coffee, config.paths.dest.sourcemaps)
 
 gulp.task 'templates', ->
-  gulp.src config.paths.src.templates
-  .pipe jade pretty: true
-  .pipe htmlmin
-    collapseWhitespace : true
-  .pipe ngTemplates
-    filename : config.templates.filename
-    module   : config.templates.module
-    path     : (path, base) ->
-      path.replace(base, '').replace('/templates', '')
+  coffeeStream = gulp.src config.paths.src.coffee
+  .pipe coffee()
 
+  templatesStream = gulp.src config.paths.src.templates
+  .pipe jade pretty: true
+  .pipe htmlmin collapseWhitespace: true
+  .pipe ngTemplates
+    standalone : false,
+    filename   : config.templates.filename
+    module     : config.templates.module
+    path       : (path, base) ->
+      path.replace(base, '').replace('/templates', '')
+  .pipe headerTap '(function() {\n'
+  .pipe footerTap '\n}).call(this);\n'
+
+  eventStream.merge coffeeStream, templatesStream
+  .pipe concat config.templates.filename
   .pipe headerTap BANNER
   .pipe gulp.dest config.paths.dest.templates
-  .pipe extReplace config.minExtensions.js
-  .pipe gulp.dest config.paths.dest.templates
+  .pipe uglifyProcess(config.paths.dest.templates, config.paths.dest.sourcemaps)
 
 # Rerun the task when a file changes
 gulp.task 'watch', ->
