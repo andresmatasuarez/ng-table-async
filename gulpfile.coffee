@@ -140,7 +140,10 @@ gulp.task 'templates', ->
 gulp.task 'watch', ->
   gulp.watch config.paths.src.coffee,    [ 'coffee' ]
   gulp.watch config.paths.src.css,       [ 'css' ]
-  gulp.watch config.paths.src.templates, [ 'templates' ]
+  gulp.watch [
+    config.paths.src.coffee,
+    config.paths.src.templates
+  ], [ 'templates' ]
 
 # Public tasks
 gulp.task 'clean', (cb) ->
