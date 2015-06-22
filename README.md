@@ -198,3 +198,5 @@ $scope.tableOptions = {
 ## TODO
 * Tests
 * Global override of templates.
+* Receive custom ngTable configuration object and use it on ngTableParams instantiation.
+* Basic sorting and filtering out of the box.
