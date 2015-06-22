@@ -108,8 +108,7 @@
         };
 
         $scope.tableOptions = {
-          pageSize      : 7,
-          pagerOnTop    : true,
+          pageSize: 7,
           getPage: function(skip, limit){
             var page = $window.DATA.slice(skip, skip + limit);
             return $q.all([
