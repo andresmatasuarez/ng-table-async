@@ -15,6 +15,10 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.3.3/ng-table.min.js"></script>
+    <script type="text/javascript" src="lib/ng-table-async-tpls.min.js"></script>
+
+    <script type="text/javascript" src="javascripts/data.js"></script>
+    <script type="text/javascript" src="javascripts/overview_example.js"></script>
 
   </head>
 
@@ -30,19 +34,54 @@
         </section>
 
         <section id="examples" class="group">
+
           <h3>Examples</h3>
-          <div id="overview" class="subgroup">
+
+          <div id="overview" class="subgroup" ng-app="OverviewExample" ng-controller="OverviewExampleController">
             <h4>Overview</h4>
+
+            <ng-table-async options="tableOptions">
+              <nta-column header="'id'"    content="item.id"></nta-column>
+              <nta-column header="'Email'" content="item.email"></nta-column>
+              <nta-column header="'Counter'">
+                <span ng-bind="item.counter"></span>
+                <nta-action
+                  action = "increment"
+                  size   = "xs"
+                  icon   = "glyphicon glyphicon-plus"
+                ></nta-action>
+              </nta-column>
+              <nta-column header="'Actions'">
+                <nta-action
+                  label  = "Reset counter"
+                  action = "reset"
+                  size   = "xs"
+                  icon   = "glyphicon glyphicon-ban-circle"
+                ></nta-action>
+                <nta-action
+                  label  = "Remove"
+                  action = "remove"
+                  size   = "xs"
+                  icon   = "glyphicon glyphicon-trash"
+                  style  = "danger"
+                ></nta-action>
+              </nta-column>
+            </ng-table-async>
+
           </div>
+
           <div id="example-1" class="subgroup">
             <h4>Example 1</h4>
           </div>
+
           <div id="example-2" class="subgroup">
             <h4>Example 2</h4>
           </div>
+
           <div id="example-3" class="subgroup">
             <h4>Example 3</h4>
           </div>
+
         </section>
 
       </div>
