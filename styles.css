@@ -1,6 +1,14 @@
+body {
+  font-size: 1.7em;
+}
+
 h1 {
   padding-bottom : 5px;
   border-bottom  : 1px solid rgb(224, 224, 224);
+}
+
+section {
+  margin-bottom: 50px;
 }
 
 .subgroup {
