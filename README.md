@@ -4,7 +4,7 @@ ngTableAsync
 
 It's specially useful for backoffice/dashboard developers, so they can come out with a fully functional asynchronous table with a default Bootstrap style in very few quick steps, where **behaviour has more priority than markup**.
 
-This module **in no way** intends to be a replacement for **ngTable**, but an enhancement. If it doesn't satisfy your needs, go back to **ngTable**.
+This module **in no way** intends to be a replacement for **ngTable**, but an enhancement. If it doesn't satisfy your needs, submit a feature PR or go back to **ngTable** :).
 
 [Integral demo](http://plnkr.co/edit/3PYJbl3fCkDfLsLmZzMp)
 
@@ -19,6 +19,7 @@ This module **in no way** intends to be a replacement for **ngTable**, but an en
 
 ## Requirements
 * [AngularJS](https://angularjs.org/)
+* [Bootstrap](http://getbootstrap.com/) - styles only
 * [Lodash](https://lodash.com/)
 * [ngTable](http://ng-table.com/)
 
@@ -26,7 +27,22 @@ This module **in no way** intends to be a replacement for **ngTable**, but an en
 * [UI.Bootstrap](https://angular-ui.github.io/bootstrap)
 
 ## Installation
+1. Install with **[Bower](http://bower.io/)**:<br />
 `bower install ng-table-async`
+2. Include dependency files in your markup:
+  * `<link rel="stylesheet" href="bootstrap.css">`
+  * `<script src="lodash.js"></script>`
+  * `<script src="angular.js"></script>`
+  * `<script src="ui-boostrap.js"></script>`
+  * `<script src="ng-table.js"></script>`
+3. Include **ngTableAsync** files in your markup:
+  * `<link rel="stylesheet" href="ng-table-async.css"></script>`
+  * `<script src="ng-table-async.js"></script>`
+4. Include **ngTableAsync** as a module dependency in your **AngularJS** app:<br />
+`angular.module('myApp', [ ... 'ngTableAsync' ... ])`
+
+> NOTE: `ng-table-async.js` contains the raw **ngTableAsync** module, whereas `ng-table-async-tpls.js` also includes default directives' templates.
+> If you choose the first, you must supply all templates yourself, just the same as if you choose `ui-bootstrap.js` over `ui-boostrap-tpls.js`.
 
 ## Usage
   ngTableAsync offers a way to write HTML tables in a column-oriented declarative way:
