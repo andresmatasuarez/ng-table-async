@@ -17,6 +17,7 @@ minifyCss   = require 'gulp-minify-css'
 ngTemplates = require 'gulp-ng-templates'
 sourcemaps  = require 'gulp-sourcemaps'
 extReplace  = require 'gulp-ext-replace'
+ngAnnotate  = require 'gulp-ng-annotate'
 pkg         = require './package.json'
 
 BANNER = """
@@ -86,6 +87,7 @@ footerTap = (header) -> appendTap header
 uglifyProcess = (dest, sourcemapDest) ->
   through (readable) ->
     readable
+    .pipe ngAnnotate()
     .pipe sourcemaps.init()
     .pipe uglify()
     .pipe headerTap BANNER
