@@ -17,6 +17,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.3.3/ng-table.min.js"></script>
     <script type="text/javascript" src="lib/ng-table-async-tpls.min.js"></script>
 
@@ -62,6 +63,7 @@
                 <li><a href="https://lodash.com/">Lodash</a></li>
                 <li><a href="https://angularjs.org/">AngularJS</a></li>
                 <li><a href="http://ng-table.com/">ngTable</a></li>
+                <li><a href="https://angular-ui.github.io/bootstrap/">UI.Bootstrap</a> (optional for confirmation dialog support)</li>
               </ol>
             </li>
             <li>
@@ -89,6 +91,21 @@
 
           <div id="overview" ng-app="OverviewExample" ng-controller="OverviewExampleController">
             <h2>Overview</h2>
+
+            <script type="text/ng-template" id="_delete_user_confirm.html">
+              <div class="modal-header">
+                <h3 class="modal-title">Delete user</h3>
+              </div>
+
+              <div class="modal-body">
+                <b>Do you wish to delete user "{{ username }}"?</b> This operation cannot be undone.
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+                <button class="btn btn-danger" ng-click="$close()">Delete</button>
+              </div>
+            </script>
 
             <ng-table-async options="tableOptions">
               <nta-column header="'id'"    content="item.id"></nta-column>

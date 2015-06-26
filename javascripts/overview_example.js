@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('OverviewExample', [ 'ngTableAsync' ]);
+var app = angular.module('OverviewExample', [ 'ngTableAsync', 'ui.bootstrap' ]);
 
 app.controller('OverviewExampleController', function($scope, $q, $timeout, $window){
 
