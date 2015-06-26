@@ -11,10 +11,6 @@ section {
   margin-bottom: 50px;
 }
 
-.subgroup {
-  background: orange;
-}
-
 .fixed {
   position: fixed;
 }
