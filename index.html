@@ -9,6 +9,7 @@
     <title>ngTableAsync</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="lib/ng-table-async.min.css"></script>
 
@@ -24,15 +25,15 @@
 
   </head>
 
-  <body main="container">
+  <body class="container-fluid">
 
-    <div class="row">
+    <div class="main-content row">
 
       <!--Main Content -->
-      <div class="col-xs-9">
+      <div class="col-xs-7">
 
-        <section class="col-md-12" id="introduction">
-          <h1>ngTableAsync</h1>
+        <section class="col-xs-12" id="introduction">
+          <h1>Introduction</h1>
 
           <p>
             <strong><a href="http://ng-table.com/">ngTable</a></strong> wrapper that offers some base functionality and abstractions for working with asynchronous tables. It serves as a way to avoid table boilerplate code, by declaring only those things relevant in our context.
@@ -48,7 +49,7 @@
 
         </section>
 
-        <section class="col-md-12" id="getting-started">
+        <section class="col-xs-12" id="getting-started">
           <h1>Getting started</h1>
           <ol>
             <li>
@@ -82,7 +83,7 @@
           </ol>
         </section>
 
-        <section class="col-md-12" id="examples">
+        <section class="col-xs-12" id="examples">
 
           <h1>Examples</h1>
 
@@ -136,31 +137,68 @@
       </div>
 
       <!--Nav Bar -->
-      <nav class="col-xs-3 bs-docs-sidebar">
-        <ul id="sidebar" class="nav nav-stacked fixed">
-          <li>
-            <a href="#introduction">Introduction</a>
-          </li>
-          <li>
-            <a href="#getting-started">Getting started</a>
-          </li>
-          <li>
-            <a href="#examples">Examples</a>
-            <ul class="nav nav-stacked">
-              <li><a href="#overview">Overview</a></li>
-              <li><a href="#example-1">Example 1</a></li>
-              <li><a href="#example-2">Example 2</a></li>
-              <li><a href="#example-3">Example 3</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
+      <nav class="col-xs-5 nav-sidebar">
 
-    </div>
+        <div class="container fixed footer-wrapper">
+
+          <div class="header row">
+            <div class="col-xs-6">
+              <h1>ngTableAsync</h1>
+              <p>
+                <strong><a href="http://ng-table.com/">ngTable</a></strong> wrapper that offers some base functionality and abstractions for working with asynchronous tables. It serves as a way to avoid table boilerplate code, by declaring only those things relevant in our context.
+              </p>
+              <p>
+                <a class="btn btn-primary btn-lg" href="https://github.com/andresmatasuarez/ng-table-async" role="button">
+                  View on GitHub
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <ul id="sidebar" class="nav nav-stacked">
+                <li>
+                  <a href="#introduction">Introduction</a>
+                </li>
+                <li>
+                  <a href="#getting-started">Getting started</a>
+                </li>
+                <li>
+                  <a href="#examples">Examples</a>
+                  <ul class="nav nav-stacked">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#example-1">Example 1</a></li>
+                    <li><a href="#example-2">Example 2</a></li>
+                    <li><a href="#example-3">Example 3</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <footer class="col-xs-6 footer text-sm">
+            <small><small>Andrés Mata Suárez - 2015</small></small>
+            <br />
+            <small><small>Feel free to contact me on</small></small>
+            <a href="mailto:amatasuarez@gmail.com"><span class="fa fa-envelope"></span></a>
+            <a href="https://www.facebook.com/andres.matasuarez"><span class="fa fa-facebook-official"></span></a>
+            <a href="https://github.com/andresmatasuarez"><span class="fa fa-github-square"></span></a>
+            <br />
+            <br />
+            <small><small>Code under <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a></small></small>
+            <br />
+            <br />
+            <small><small><small>Rest in festering slime.</small></small></small>
+          </footer>
+
+        </div>
+
+      </nav>
 
     <script>
       $('body').scrollspy({
-        target : '.bs-docs-sidebar',
+        target : '.nav-sidebar',
         offset : 40
       });
     </script>

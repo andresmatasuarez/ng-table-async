@@ -15,15 +15,49 @@ section {
   position: fixed;
 }
 
+.footer-wrapper {
+  min-height: 100%;
+}
+
+/* Bootstrap colors override */
+a {
+  color: rgb(132, 3, 26);
+}
+a:hover {
+  color           : red;
+  text-decoration : none;
+}
+
+.btn-primary {
+  background-color : rgb(132, 3, 26);
+  border           : none;
+}
+
+.btn-primary:hover {
+  background-color: red;
+}
+
+/* http://getbootstrap.com/examples/sticky-footer/ */
+.footer {
+  position  : absolute;
+  bottom    : 0;
+  height    : 200px;
+  color     : gray;
+}
+
 /* sidebar */
-.bs-docs-sidebar {
+.nav-sidebar {
   padding-left  : 20px;
   margin-top    : 20px;
   margin-bottom : 20px;
 }
 
+.nav-sidebar .header {
+  margin-bottom: 20px;
+}
+
 /* all links */
-.bs-docs-sidebar .nav>li>a {
+.nav-sidebar .nav>li>a {
   color       : #999;
   border-left : 2px solid transparent;
   padding     : 4px 20px;
@@ -32,7 +66,7 @@ section {
 }
 
 /* nested links */
-.bs-docs-sidebar .nav .nav>li>a {
+.nav-sidebar .nav .nav>li>a {
   padding-top    : 1px;
   padding-bottom : 1px;
   padding-left   : 30px;
@@ -40,35 +74,35 @@ section {
 }
 
 /* active & hover links */
-.bs-docs-sidebar .nav>.active>a,
-.bs-docs-sidebar .nav>li>a:hover,
-.bs-docs-sidebar .nav>li>a:focus {
-  color             : #563d7c;
+.nav-sidebar .nav>.active>a,
+.nav-sidebar .nav>li>a:hover,
+.nav-sidebar .nav>li>a:focus {
+  color             : rgb(132, 3, 26);
   text-decoration   : none;
   background-color  : transparent;
-  border-left-color : #563d7c;
+  border-left-color : rgb(132, 3, 26);
 }
 
 /* all active links */
-.bs-docs-sidebar .nav>.active>a,
-.bs-docs-sidebar .nav>.active:hover>a,
-.bs-docs-sidebar .nav>.active:focus>a {
+.nav-sidebar .nav>.active>a,
+.nav-sidebar .nav>.active:hover>a,
+.nav-sidebar .nav>.active:focus>a {
   font-weight: 700;
 }
 
 /* nested active links */
-.bs-docs-sidebar .nav .nav>.active>a,
-.bs-docs-sidebar .nav .nav>.active:hover>a,
-.bs-docs-sidebar .nav .nav>.active:focus>a {
+.nav-sidebar .nav .nav>.active>a,
+.nav-sidebar .nav .nav>.active:hover>a,
+.nav-sidebar .nav .nav>.active:focus>a {
   font-weight: 500;
 }
 
 /* hide inactive nested list */
-.bs-docs-sidebar .nav ul.nav {
+.nav-sidebar .nav ul.nav {
   display: none;
 }
 
 /* show active nested list */
-.bs-docs-sidebar .nav>.active>ul.nav {
+.nav-sidebar .nav>.active>ul.nav {
   display: block;
 }
