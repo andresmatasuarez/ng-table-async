@@ -1,0 +1,35 @@
+<div ng-controller="CustomPagerExampleController">
+  <script type="text/ng-template" id="_my_custom_pager.html">
+    <ul class="pagination container-fluid" style="display: block;">
+      <li ng-repeat="page in pages" ng-class="{'disabled active': !page.active, 'previous': page.type == 'prev', 'next pull-right': page.type == 'next'}" ng-switch="page.type">
+        <a ng-switch-when="prev" ng-click="params.page(page.number)" href="" class="btn btn-default">
+          Previous page
+        </a>
+        <a ng-switch-when="next" ng-click="params.page(page.number)" href="" class="btn btn-default">
+          Next Page
+        </a>
+      </li>
+    </ul>
+  </script>
+
+  <ng-table-async options="tableOptions">
+    <nta-column header="'id'"    content="item.id"></nta-column>
+    <nta-column header="'Email'" content="item.email"></nta-column>
+    <nta-column header="'Counter'" content="item.counter"></nta-column>
+    <nta-column header="'Actions'">
+      <nta-action
+        action = "increment"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-plus"
+      ></nta-action>
+      <nta-action
+        label  = "Remove"
+        action = "remove"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-trash"
+        style  = "danger"
+      ></nta-action>
+    </nta-column>
+    <nta-pager template-url="_my_custom_pager.html"></nta-pager>
+  </ng-table-async>
+</div>

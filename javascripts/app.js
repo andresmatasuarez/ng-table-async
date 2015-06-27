@@ -5,7 +5,8 @@ var app = angular.module('ngTableAsyncPages', [
   'OverviewExample',
   'SimpleExample',
   'CustomLoadingExample',
-  'CustomNoDataExample'
+  'CustomNoDataExample',
+  'CustomPagerExample'
 ]);
 
 app.config(function($locationProvider){
