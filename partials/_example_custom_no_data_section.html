@@ -1,0 +1,35 @@
+<div>
+  <h2>
+    <span>Custom 'No data' template</span><br />
+    <small>Pager on top and bottom, page size 5, no dialogs</small>
+    <ul class="pull-right nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-custom-no-data-showcase"
+          aria-controls="example-custom-no-data-showcase">Example</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-custom-no-data-html"
+          aria-controls="example-custom-no-data-html">HTML</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-custom-no-data-js"
+          aria-controls="example-custom-no-data-js">Javascript</a>
+      </li>
+    </ul>
+  </h2>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="example-custom-no-data-showcase">
+      <ng-include src="'partials/examples/_example_custom_no_data.html'"></ng-include>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-custom-no-data-html">
+      <div hljs include="'partials/examples/_example_custom_no_data.html'"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-custom-no-data-js">
+      <div hljs include="'javascripts/examples/custom_no_data_example.js'"></div>
+    </div>
+  </div>
+</div>

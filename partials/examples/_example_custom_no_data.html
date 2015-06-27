@@ -1,0 +1,26 @@
+<div ng-controller="CustomNoDataExampleController">
+  <script type="text/ng-template" id="_my_custom_no_data.html">
+
+  </script>
+
+  <ng-table-async options="tableOptions">
+    <nta-column header="'id'"    content="item.id"></nta-column>
+    <nta-column header="'Email'" content="item.email"></nta-column>
+    <nta-column header="'Counter'" content="item.counter"></nta-column>
+    <nta-column header="'Actions'">
+      <nta-action
+        action = "increment"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-plus"
+      ></nta-action>
+      <nta-action
+        label  = "Remove"
+        action = "remove"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-trash"
+        style  = "danger"
+      ></nta-action>
+    </nta-column>
+    <!-- <nta-loading template-url="_my_custom_loading.html"></nta-loading> -->
+  </ng-table-async>
+</div>
