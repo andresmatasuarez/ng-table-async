@@ -1,0 +1,22 @@
+<div ng-controller="SimpleExampleController">
+
+  <ng-table-async options="tableOptions">
+    <nta-column header="'id'"    content="item.id"></nta-column>
+    <nta-column header="'Email'" content="item.email"></nta-column>
+    <nta-column header="'Counter'" content="item.counter"></nta-column>
+    <nta-column header="'Actions'">
+      <nta-action
+        action = "increment"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-plus"
+      ></nta-action>
+      <nta-action
+        label  = "Remove"
+        action = "remove"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-trash"
+        style  = "danger"
+      ></nta-action>
+    </nta-column>
+  </ng-table-async>
+</div>

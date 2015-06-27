@@ -1,0 +1,35 @@
+<div>
+  <h2>
+    <span>Simple</span>
+    <small><small>Default options and templates, no dialogs</small></small>
+    <ul class="pull-right nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-simple-showcase"
+          aria-controls="example-simple-showcase">Example</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-simple-html"
+          aria-controls="example-simple-html">HTML</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-simple-js"
+          aria-controls="example-simple-js">Javascript</a>
+      </li>
+    </ul>
+  </h2>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="example-simple-showcase">
+      <ng-include src="'partials/_example_simple.html'"></ng-include>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-simple-html">
+      <div hljs include="'partials/_example_simple.html'"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-simple-js">
+      <div hljs include="'javascripts/simple_example.js'"></div>
+    </div>
+  </div>
+</div>

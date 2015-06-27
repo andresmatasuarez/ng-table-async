@@ -2,7 +2,8 @@
 
 var app = angular.module('ngTableAsyncPages', [
   'hljs',
-  'OverviewExample'
+  'OverviewExample',
+  'SimpleExample'
 ]);
 
 app.run(function($rootScope, $window, $q, $timeout){
