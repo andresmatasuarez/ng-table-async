@@ -7,15 +7,6 @@ app.controller('OverviewExampleController', function($scope, $q, $timeout, $wind
   // Clone data array
   var data = _.cloneDeep($window.DATA);
 
-  var simulatePromiseDelay = function(cb){
-    var defer = $q.defer();
-    $timeout(function(){
-      var result = cb();
-      defer.resolve(result);
-    }, 2500);
-    return defer.promise;
-  };
-
   $scope.tableOptions = {
     pageSize: 7,
     getPage: function(skip, limit){
@@ -29,7 +20,7 @@ app.controller('OverviewExampleController', function($scope, $q, $timeout, $wind
       increment: {
         method : function(user){
           console.log('Incrementing...');
-          return simulatePromiseDelay(function(){
+          return $scope.simulateDelay(function(){
             user.counter += 1;
           });
         },
@@ -37,7 +28,7 @@ app.controller('OverviewExampleController', function($scope, $q, $timeout, $wind
       },
       reset: function(user){
         console.log('Resetting...');
-        return simulatePromiseDelay(function(){
+        return $scope.simulateDelay(function(){
           user.counter = 0;
         });
       },

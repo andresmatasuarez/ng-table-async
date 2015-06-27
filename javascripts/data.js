@@ -21,3 +21,14 @@ window.DATA = [
   { id: 18, name: 'II', counter: 0, email: 'ii@mail.com' },
   { id: 19, name: 'JJ', counter: 0, email: 'jj@mail.com' }
 ];
+
+window.simulateDelay = function($q, $timeout){
+  return function(cb){
+    var defer = $q.defer();
+    $timeout(function(){
+      var result = cb();
+      defer.resolve(result);
+    }, 2500);
+    return defer.promise;
+  };
+};
