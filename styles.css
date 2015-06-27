@@ -16,6 +16,11 @@ h1 {
   border-bottom  : 1px solid rgb(224, 224, 224);
 }
 
+nta-no-data h2 {
+  padding-bottom : inherit !important;
+  border-bottom  : inherit !important;
+}
+
 section {
   margin-bottom: 50px;
 }
