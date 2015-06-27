@@ -1,0 +1,34 @@
+<div>
+  <h2>
+    <span>Overview</span>
+    <ul class="pull-right nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-overview-showcase"
+          aria-controls="example-overview-showcase">Example</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-overview-html"
+          aria-controls="example-overview-html">HTML</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-overview-js"
+          aria-controls="example-overview-js">Javascript</a>
+      </li>
+    </ul>
+  </h2>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="example-overview-showcase">
+      <ng-include src="'partials/_overview.html'"></ng-include>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-overview-html">
+      <div hljs include="'partials/_overview.html'"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-overview-js">
+      <div hljs include="'javascripts/overview_example.js'"></div>
+    </div>
+  </div>
+</div>

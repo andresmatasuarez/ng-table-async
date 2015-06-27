@@ -1,0 +1,44 @@
+<div ng-controller="OverviewExampleController">
+  <script type="text/ng-template" id="_delete_user_confirm.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Delete user</h3>
+    </div>
+
+    <div class="modal-body">
+      <b>Do you wish to delete user "{{ username }}"?</b> This operation cannot be undone.
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+      <button class="btn btn-danger" ng-click="$close()">Delete</button>
+    </div>
+  </script>
+
+  <ng-table-async options="tableOptions">
+    <nta-column header="'id'"    content="item.id"></nta-column>
+    <nta-column header="'Email'" content="item.email"></nta-column>
+    <nta-column header="'Counter'">
+      <span ng-bind="item.counter"></span>
+      <nta-action
+        action = "increment"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-plus"
+      ></nta-action>
+    </nta-column>
+    <nta-column header="'Actions'">
+      <nta-action
+        label  = "Reset counter"
+        action = "reset"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-ban-circle"
+      ></nta-action>
+      <nta-action
+        label  = "Remove"
+        action = "remove"
+        size   = "xs"
+        icon   = "glyphicon glyphicon-trash"
+        style  = "danger"
+      ></nta-action>
+    </nta-column>
+  </ng-table-async>
+</div>

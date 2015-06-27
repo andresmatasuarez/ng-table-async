@@ -8,25 +8,30 @@
 
     <title>ngTableAsync</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="lib/ng-table-async.min.css"></script>
 
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+    <script type="text/javascript" src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.3.3/ng-table.min.js"></script>
     <script type="text/javascript" src="lib/ng-table-async-tpls.min.js"></script>
 
     <script type="text/javascript" src="javascripts/data.js"></script>
+    <script type="text/javascript" src="javascripts/app.js"></script>
     <script type="text/javascript" src="javascripts/overview_example.js"></script>
 
   </head>
 
-  <body class="container-fluid">
+  <body ng-app="ngTableAsyncPages" class="container-fluid">
 
     <div class="main-content row">
 
@@ -89,52 +94,8 @@
 
           <h1>Examples</h1>
 
-          <div id="overview" ng-app="OverviewExample" ng-controller="OverviewExampleController">
-            <h2>Overview</h2>
-
-            <script type="text/ng-template" id="_delete_user_confirm.html">
-              <div class="modal-header">
-                <h3 class="modal-title">Delete user</h3>
-              </div>
-
-              <div class="modal-body">
-                <b>Do you wish to delete user "{{ username }}"?</b> This operation cannot be undone.
-              </div>
-
-              <div class="modal-footer">
-                <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
-                <button class="btn btn-danger" ng-click="$close()">Delete</button>
-              </div>
-            </script>
-
-            <ng-table-async options="tableOptions">
-              <nta-column header="'id'"    content="item.id"></nta-column>
-              <nta-column header="'Email'" content="item.email"></nta-column>
-              <nta-column header="'Counter'">
-                <span ng-bind="item.counter"></span>
-                <nta-action
-                  action = "increment"
-                  size   = "xs"
-                  icon   = "glyphicon glyphicon-plus"
-                ></nta-action>
-              </nta-column>
-              <nta-column header="'Actions'">
-                <nta-action
-                  label  = "Reset counter"
-                  action = "reset"
-                  size   = "xs"
-                  icon   = "glyphicon glyphicon-ban-circle"
-                ></nta-action>
-                <nta-action
-                  label  = "Remove"
-                  action = "remove"
-                  size   = "xs"
-                  icon   = "glyphicon glyphicon-trash"
-                  style  = "danger"
-                ></nta-action>
-              </nta-column>
-            </ng-table-async>
-
+          <div id="overview">
+            <ng-include src="'partials/_example_overview_section.html'"></ng-include>
           </div>
 
           <div id="example-1">
