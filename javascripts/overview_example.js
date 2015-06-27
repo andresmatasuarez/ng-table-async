@@ -4,6 +4,9 @@ var app = angular.module('OverviewExample', [ 'ngTableAsync', 'ui.bootstrap' ]);
 
 app.controller('OverviewExampleController', function($scope, $q, $timeout, $window){
 
+  // Clone data array
+  var data = _.cloneDeep($window.DATA);
+
   var simulatePromiseDelay = function(cb){
     var defer = $q.defer();
     $timeout(function(){
@@ -16,9 +19,9 @@ app.controller('OverviewExampleController', function($scope, $q, $timeout, $wind
   $scope.tableOptions = {
     pageSize: 7,
     getPage: function(skip, limit){
-      var page = $window.DATA.slice(skip, skip + limit);
+      var page = data.slice(skip, skip + limit);
       return $q.all([
-        $window.DATA.length,
+        data.length,
         page
       ]);
     },
@@ -40,7 +43,7 @@ app.controller('OverviewExampleController', function($scope, $q, $timeout, $wind
       },
       remove: {
         method : function(user){
-          _.remove($window.DATA, { id: user.id });
+          _.remove(data, { id: user.id });
         },
         dialog : {
           templateUrl : '_delete_user_confirm.html',
