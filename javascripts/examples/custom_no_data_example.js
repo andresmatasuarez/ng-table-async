@@ -4,7 +4,7 @@ var app = angular.module('CustomNoDataExample', [ 'ngTableAsync' ]);
 
 app.controller('CustomNoDataExampleController', function($scope, $q, $timeout, $window){
 
-  // Clone data array
+  // Empty data array
   var data = [];
 
   $scope.tableOptions = {

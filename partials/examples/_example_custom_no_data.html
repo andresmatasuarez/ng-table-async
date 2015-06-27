@@ -1,6 +1,10 @@
 <div ng-controller="CustomNoDataExampleController">
   <script type="text/ng-template" id="_my_custom_no_data.html">
-
+    <div class="text-center">
+      <h1 class="glyphicon glyphicon-info-sign"></h1>
+      <br />
+      <strong>No results available right now.</strong>
+    </div>
   </script>
 
   <ng-table-async options="tableOptions">
@@ -21,6 +25,6 @@
         style  = "danger"
       ></nta-action>
     </nta-column>
-    <!-- <nta-loading template-url="_my_custom_loading.html"></nta-loading> -->
+    <nta-no-data template-url="_my_custom_no_data.html"></nta-no-data>
   </ng-table-async>
 </div>
