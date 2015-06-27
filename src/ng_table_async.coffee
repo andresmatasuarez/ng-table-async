@@ -116,7 +116,7 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
 
     </div>
 
-    <div ng-show=\"!tableParams.total()\">
+    <div class=\"container-fluid no-data-container\" ng-show=\"!tableParams.total()\">
       #{ ndaTemplate }
     </div>
 

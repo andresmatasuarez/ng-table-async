@@ -94,7 +94,7 @@
         } else {
           loadingTemplate = "<nta-loading></nta-loading>";
         }
-        return "<div class=\"container-fluid nta-container\" ng-show=\"tableParams.total()\"> <div class=\"row\"> <div class=\"col-md-12\"> <div ng-if=\"options.pagerOnTop\"> " + pagerTemplate + " </div> <div class=\"nta-content row\"> <div class=\"panel panel-default\"> <table ng-table=\"tableParams\" class=\"table ng-table ng-table-responsive nta-table\"> <thead> <tr> " + (compiledHeaders.join(' ')) + " </tr> </thead> <tbody> <tr ng-repeat=\"item in $data\"> " + (compiledContents.join(' ')) + " </tr> </tbody> </table> </div> <div ng-show=\"loading\" class=\"nta-loading-container\"> " + loadingTemplate + " </div> </div> <div ng-if=\"options.pagerOnBottom\"> " + pagerTemplate + " </div> </div> </div> </div> <div ng-show=\"!tableParams.total()\"> " + ndaTemplate + " </div>";
+        return "<div class=\"container-fluid nta-container\" ng-show=\"tableParams.total()\"> <div class=\"row\"> <div class=\"col-md-12\"> <div ng-if=\"options.pagerOnTop\"> " + pagerTemplate + " </div> <div class=\"nta-content row\"> <div class=\"panel panel-default\"> <table ng-table=\"tableParams\" class=\"table ng-table ng-table-responsive nta-table\"> <thead> <tr> " + (compiledHeaders.join(' ')) + " </tr> </thead> <tbody> <tr ng-repeat=\"item in $data\"> " + (compiledContents.join(' ')) + " </tr> </tbody> </table> </div> <div ng-show=\"loading\" class=\"nta-loading-container\"> " + loadingTemplate + " </div> </div> <div ng-if=\"options.pagerOnBottom\"> " + pagerTemplate + " </div> </div> </div> </div> <div class=\"container-fluid no-data-container\" ng-show=\"!tableParams.total()\"> " + ndaTemplate + " </div>";
       },
       controller: function($scope, $element, ngTableAsyncDefaults) {
         $scope.options = _.merge({
@@ -295,7 +295,7 @@
 (function() {
 angular.module("ngTableAsync").run(["$templateCache", function($templateCache) {$templateCache.put("_ng_table_async_action.html","<button type=\"button\" ng-click=\"do()\" class=\"btn {{size}} {{style}}\"><span ng-if=\"icon\"><span class=\"{{icon}}\"></span><span ng-if=\"label\">&nbsp;</span></span><span ng-bind=\"label\"></span></button>");
 $templateCache.put("_ng_table_async_loading.html","<div class=\"nta-loading\"><div class=\"nta-loading-loader\"><i class=\"glyphicon glyphicon-refresh nta-loading-spinner\"></i></div></div>");
-$templateCache.put("_ng_table_async_no_data.html","<div class=\"container no-data-container\"><div class=\"row\"><div class=\"col-md-6 col-md-offset-3\"><h2 ng-bind=\"text\" class=\"text-muted text-center\"></h2></div></div></div>");
+$templateCache.put("_ng_table_async_no_data.html","<h2 ng-bind=\"text\" class=\"text-muted text-center\"></h2>");
 $templateCache.put("_ng_table_async_pager.html","<div class=\"text-center\"><ul class=\"pagination ng-table-pagination\"><li ng-repeat=\"page in pages\" ng-class=\"{\'disabled active\': !page.active, \'previous\': page.type == \'prev\', \'next\': page.type == \'next\'}\" ng-switch=\"page.type\"><a ng-switch-when=\"prev\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a><a ng-switch-when=\"next\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a><a ng-switch-when=\"more\" ng-click=\"params.page(page.number)\" href=\"\">...</a><a ng-switch-default=\"\" ng-click=\"params.page(page.number)\" href=\"\">{{ page.number }}</a></li></ul></div>");}]);
 }).call(this);
 
