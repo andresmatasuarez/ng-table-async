@@ -2,11 +2,11 @@
 
 var app = angular.module('ngTableAsyncPages', [
   'hljs',
-  'OverviewExample',
   'SimpleExample',
   'CustomLoadingExample',
   'CustomNoDataExample',
-  'CustomPagerExample'
+  'CustomPagerExample',
+  'DialogExample'
 ]);
 
 app.config(function($locationProvider){

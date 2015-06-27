@@ -1,14 +1,13 @@
 'use strict';
 
-var app = angular.module('OverviewExample', [ 'ngTableAsync', 'ui.bootstrap' ]);
+var app = angular.module('DialogExample', [ 'ngTableAsync', 'ui.bootstrap' ]);
 
-app.controller('OverviewExampleController', function($scope, $q, $timeout, $window){
+app.controller('DialogExampleController', function($scope, $q, $timeout, $window){
 
   // Clone data array
   var data = _.cloneDeep($window.DATA);
 
   $scope.tableOptions = {
-    pageSize: 7,
     getPage: function(skip, limit){
       var page = data.slice(skip, skip + limit);
       return $q.all([

@@ -1,0 +1,36 @@
+<div>
+  <h2>
+    <span>Confirmation dialog</span>
+    <br />
+    <small>Default options and templates.</small>
+    <ul class="pull-right nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-dialog-showcase"
+          aria-controls="example-dialog-showcase">Example</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-dialog-html"
+          aria-controls="example-dialog-html">HTML</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-dialog-js"
+          aria-controls="example-dialog-js">Javascript</a>
+      </li>
+    </ul>
+  </h2>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="example-dialog-showcase">
+      <ng-include src="'partials/examples/_example_dialog.html'"></ng-include>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-dialog-html">
+      <div hljs include="'partials/examples/_example_dialog.html'"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-dialog-js">
+      <div hljs include="'javascripts/examples/dialog_example.js'"></div>
+    </div>
+  </div>
+</div>

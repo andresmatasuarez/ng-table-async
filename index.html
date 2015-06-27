@@ -28,11 +28,11 @@
 
     <script type="text/javascript" src="javascripts/data.js"></script>
     <script type="text/javascript" src="javascripts/app.js"></script>
-    <script type="text/javascript" src="javascripts/examples/overview_example.js"></script>
     <script type="text/javascript" src="javascripts/examples/simple_example.js"></script>
     <script type="text/javascript" src="javascripts/examples/custom_loading_example.js"></script>
     <script type="text/javascript" src="javascripts/examples/custom_no_data_example.js"></script>
     <script type="text/javascript" src="javascripts/examples/custom_pager_example.js"></script>
+    <script type="text/javascript" src="javascripts/examples/dialog_example.js"></script>
 
   </head>
 
@@ -99,10 +99,6 @@
 
           <h1>Examples</h1>
 
-          <div class="section-example" id="overview-example">
-            <ng-include src="'partials/_example_overview_section.html'"></ng-include>
-          </div>
-
           <div class="section-example" id="simple-example">
             <ng-include src="'partials/_example_simple_section.html'"></ng-include>
           </div>
@@ -117,6 +113,10 @@
 
           <div class="section-example" id="custom-pager-example">
             <ng-include src="'partials/_example_custom_pager_section.html'"></ng-include>
+          </div>
+
+          <div class="section-example" id="dialog-example">
+            <ng-include src="'partials/_example_dialog_section.html'"></ng-include>
           </div>
 
         </section>
@@ -154,11 +154,11 @@
                 <li>
                   <a href="#examples">Examples</a>
                   <ul class="nav nav-stacked">
-                    <li><a target="_self" href="#overview-example">Overview</a></li>
                     <li><a target="_self" href="#simple-example">Simple</a></li>
                     <li><a target="_self" href="#custom-loading-example">Custom loading template</a></li>
                     <li><a target="_self" href="#custom-no-data-example">Custom 'No data' template</a></li>
                     <li><a target="_self" href="#custom-pager-example">Custom pager template</a></li>
+                    <li><a target="_self" href="#dialog-example">Confirmation dialog</a></li>
                   </ul>
                 </li>
               </ul>
