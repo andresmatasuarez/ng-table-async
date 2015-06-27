@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <base href="/">
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="ngTableAsync: ngTable wrapper that offers some base functionality and abstractions for working with asynchronous tables. ">
@@ -15,9 +16,9 @@
     <link rel="stylesheet" href="lib/ng-table-async.min.css">
 
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
     <script type="text/javascript" src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
@@ -34,7 +35,7 @@
 
   </head>
 
-  <body ng-app="ngTableAsyncPages" class="container-fluid">
+  <body ng-app="ngTableAsyncPages" class="container-fluid" data-spy="scroll" data-target=".nav-sidebar" data-offset="40">
 
     <div class="main-content row">
 
@@ -148,10 +149,10 @@
                 <li>
                   <a href="#examples">Examples</a>
                   <ul class="nav nav-stacked">
-                    <li><a href="#overview-example">Overview</a></li>
-                    <li><a href="#simple-example">Simple</a></li>
-                    <li><a href="#custom-loading-example">Custom loading template</a></li>
-                    <li><a href="#custom-no-data-example">Custom 'No data' template</a></li>
+                    <li><a target="_self" href="#overview-example">Overview</a></li>
+                    <li><a target="_self" href="#simple-example">Simple</a></li>
+                    <li><a target="_self" href="#custom-loading-example">Custom loading template</a></li>
+                    <li><a target="_self" href="#custom-no-data-example">Custom 'No data' template</a></li>
                   </ul>
                 </li>
               </ul>
@@ -178,13 +179,6 @@
       </nav>
 
     </div>
-
-    <script>
-      $('body').scrollspy({
-        target : '.nav-sidebar',
-        offset : 40
-      });
-    </script>
 
   </body>
 
