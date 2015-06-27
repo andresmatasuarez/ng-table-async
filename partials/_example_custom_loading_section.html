@@ -1,0 +1,35 @@
+<div>
+  <h2>
+    <span>Custom loading template</span><br />
+    <small>Pager on top, default page 2, page size 5, no dialogs</small>
+    <ul class="pull-right nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-custom_loading-showcase"
+          aria-controls="example-custom_loading-showcase">Example</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-custom_loading-html"
+          aria-controls="example-custom_loading-html">HTML</a>
+      </li>
+      <li role="presentation">
+        <a role="tab" data-toggle="tab" class="btn btn-defaut"
+          href="#example-custom_loading-js"
+          aria-controls="example-custom_loading-js">Javascript</a>
+      </li>
+    </ul>
+  </h2>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="example-custom_loading-showcase">
+      <ng-include src="'partials/_example_custom_loading.html'"></ng-include>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-custom_loading-html">
+      <div hljs include="'partials/_example_custom_loading.html'"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="example-custom_loading-js">
+      <div hljs include="'javascripts/custom_loading_example.js'"></div>
+    </div>
+  </div>
+</div>
