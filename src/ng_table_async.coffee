@@ -52,24 +52,25 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
     compiledContents = _.map parsedColumns, 'content'
 
     # Determine 'No Data Available' template
-    ndaElement = element.find 'no-data'
-    ndaTemplate = ndaElement.html()
-    if !ndaTemplate
-      ndaTemplateUrl = ndaElement.attr 'template-url'
-      if ndaTemplateUrl
-        ndaTemplate = "<nta-no-data template-url=\"#{ndaTemplateUrl}\"></nta-no-data>"
-      else
-        ndaTemplate = "<nta-no-data text=\"#{ndaElement.attr 'text'}\"></nta-no-data>"
+    ndaElement = _.last element.find 'nta-no-data'
+    if ndaElement
+      ndaTemplate = ndaElement.outerHTML
+    else
+      ndaTemplate = "<nta-no-data></nta-no-data>"
 
     # Determine pager template
-    pagerElement     = element.find 'pager'
-    pagerTemplateUrl = pagerElement.attr 'template-url'
-    pagerTemplate    = "<nta-pager template-url=\"#{pagerTemplateUrl}\"></nta-pager>"
+    pagerElement = _.last element.find 'nta-pager'
+    if pagerElement
+      pagerTemplate = pagerElement.outerHTML
+    else
+      pagerTemplate = "<nta-pager></nta-pager>"
 
     # Determine loading template
-    loadingElement     = element.find 'loading'
-    loadingTemplateUrl = loadingElement.attr 'template-url'
-    loadingTemplate    = "<nta-loading template-url=\"#{loadingTemplateUrl}\"></nta-loading>"
+    loadingElement = _.last element.find 'nta-loading'
+    if loadingElement
+      loadingTemplate = loadingElement.outerHTML
+    else
+      loadingTemplate = "<nta-loading></nta-loading>"
 
     # Tried to extract this template to a separate file
     # but there is no blocking way to load it.

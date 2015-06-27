@@ -71,27 +71,29 @@
         options: '='
       },
       template: function(element, attrs) {
-        var columns, compiledContents, compiledHeaders, loadingElement, loadingTemplate, loadingTemplateUrl, ndaElement, ndaTemplate, ndaTemplateUrl, pagerElement, pagerTemplate, pagerTemplateUrl, parsedColumns;
+        var columns, compiledContents, compiledHeaders, loadingElement, loadingTemplate, ndaElement, ndaTemplate, pagerElement, pagerTemplate, parsedColumns;
         columns = element.find('nta-column');
         parsedColumns = _.map(columns, parseColumn);
         compiledHeaders = _.map(parsedColumns, 'header');
         compiledContents = _.map(parsedColumns, 'content');
-        ndaElement = element.find('no-data');
-        ndaTemplate = ndaElement.html();
-        if (!ndaTemplate) {
-          ndaTemplateUrl = ndaElement.attr('template-url');
-          if (ndaTemplateUrl) {
-            ndaTemplate = "<nta-no-data template-url=\"" + ndaTemplateUrl + "\"></nta-no-data>";
-          } else {
-            ndaTemplate = "<nta-no-data text=\"" + (ndaElement.attr('text')) + "\"></nta-no-data>";
-          }
+        ndaElement = _.last(element.find('nta-no-data'));
+        if (ndaElement) {
+          ndaTemplate = ndaElement.outerHTML;
+        } else {
+          ndaTemplate = "<nta-no-data></nta-no-data>";
         }
-        pagerElement = element.find('pager');
-        pagerTemplateUrl = pagerElement.attr('template-url');
-        pagerTemplate = "<nta-pager template-url=\"" + pagerTemplateUrl + "\"></nta-pager>";
-        loadingElement = element.find('loading');
-        loadingTemplateUrl = loadingElement.attr('template-url');
-        loadingTemplate = "<nta-loading template-url=\"" + loadingTemplateUrl + "\"></nta-loading>";
+        pagerElement = _.last(element.find('nta-pager'));
+        if (pagerElement) {
+          pagerTemplate = pagerElement.outerHTML;
+        } else {
+          pagerTemplate = "<nta-pager></nta-pager>";
+        }
+        loadingElement = _.last(element.find('nta-loading'));
+        if (loadingElement) {
+          loadingTemplate = loadingElement.outerHTML;
+        } else {
+          loadingTemplate = "<nta-loading></nta-loading>";
+        }
         return "<div class=\"container-fluid nta-container\" ng-show=\"tableParams.total()\"> <div class=\"row\"> <div class=\"col-md-12\"> <div ng-if=\"options.pagerOnTop\"> " + pagerTemplate + " </div> <div class=\"nta-content row\"> <div class=\"panel panel-default\"> <table ng-table=\"tableParams\" class=\"table ng-table ng-table-responsive nta-table\"> <thead> <tr> " + (compiledHeaders.join(' ')) + " </tr> </thead> <tbody> <tr ng-repeat=\"item in $data\"> " + (compiledContents.join(' ')) + " </tr> </tbody> </table> </div> <div ng-show=\"loading\" class=\"nta-loading-container\"> " + loadingTemplate + " </div> </div> <div ng-if=\"options.pagerOnBottom\"> " + pagerTemplate + " </div> </div> </div> </div> <div ng-show=\"!tableParams.total()\"> " + ndaTemplate + " </div>";
       },
       controller: function($scope, $element, ngTableAsyncDefaults) {
