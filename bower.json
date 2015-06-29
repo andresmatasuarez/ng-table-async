@@ -24,8 +24,13 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "src",
+    "tests",
+    "bower.json",
+    "gulpfile.coffee",
+    "package.json",
+    "README.md",
+    "LICENSE"
   ],
   "dependencies": {
     "angular": "~1.4.0",
