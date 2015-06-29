@@ -2,7 +2,8 @@
 <html>
 
   <head>
-    <base href="https://andresmatasuarez.github.io/ng-table-async/">
+    <!-- <base href="https://andresmatasuarez.github.io/ng-table-async/"> -->
+    <base href="/">
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="ngTableAsync: ngTable wrapper that offers some base functionality and abstractions for working with asynchronous tables. ">
@@ -21,6 +22,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-scroll/0.7.1/angular-scroll.min.js"></script>
     <script type="text/javascript" src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.3.3/ng-table.min.js"></script>
@@ -36,7 +38,7 @@
 
   </head>
 
-  <body ng-app="ngTableAsyncPages" class="container-fluid" data-spy="scroll" data-target=".nav-sidebar" data-offset="40">
+  <body ng-app="ngTableAsyncPages" class="container-fluid">
 
     <div class="main-content row">
 
@@ -146,22 +148,33 @@
 
           <div class="row">
             <div class="col-xs-11">
-              <ul id="sidebar" class="nav nav-stacked">
-                <li>
-                  <a href="#introduction">Introduction</a>
+              <ul du-spy-context="40" id="sidebar" class="nav nav-stacked">
+                <li du-scrollspy="introduction">
+                  <a href="#" ng-click="scrollTo('introduction')">Introduction</a>
                 </li>
-                <li>
-                  <a href="#getting-started">Getting started</a>
+                <li du-scrollspy="getting-started">
+                  <a href="#" ng-click="scrollTo('getting-started')">Getting started</a>
                 </li>
-                <li>
-                  <a href="#examples">Examples</a>
-                  <ul class="nav nav-stacked">
-                    <li><a target="_self" href="#simple-example">Simple</a></li>
-                    <li><a target="_self" href="#custom-loading-example">Custom loading template</a></li>
-                    <li><a target="_self" href="#custom-no-data-example">Custom 'No data' template</a></li>
-                    <li><a target="_self" href="#custom-pager-example">Custom pager template</a></li>
-                    <li><a target="_self" href="#dialog-example">Confirmation dialog</a></li>
+                <li du-scrollspy="examples">
+                  <a href="#" ng-click="scrollTo('examples')">Examples</a>
+                  <ul du-spy-context="40" class="nav nav-stacked">
+                    <li du-scrollspy="simple-example">
+                      <a href="#" ng-click="scrollTo('simple-example')">Simple</a>
+                    </li>
+                    <li du-scrollspy="custom-loading-example">
+                      <a href="#" ng-click="scrollTo('custom-loading-example')">Custom loading template</a>
+                    </li>
+                    <li du-scrollspy="custom-no-data-example">
+                      <a href="#" ng-click="scrollTo('custom-no-data-example')">Custom 'No data' template</a>
+                    </li>
+                    <li du-scrollspy="custom-pager-example">
+                      <a href="#" ng-click="scrollTo('custom-pager-example')">Custom pager template</a>
+                    </li>
+                    <li du-scrollspy="dialog-example">
+                      <a href="#" ng-click="scrollTo('dialog-example')">Confirmation dialog</a>
+                    </li>
                   </ul>
+
                 </li>
               </ul>
             </div>
