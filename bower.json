@@ -24,6 +24,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "gulp",
     "src",
     "tests",
     "bower.json",

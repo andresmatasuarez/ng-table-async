@@ -1,24 +1,19 @@
 'use strict'
 
-_           = require 'lodash'
-path        = require 'path'
-del         = require 'del'
-runSequence = require 'run-sequence'
-eventStream = require 'event-stream'
-through     = require 'through-pipes'
-gulp        = require 'gulp'
-tap         = require 'gulp-tap'
-coffee      = require 'gulp-coffee'
-uglify      = require 'gulp-uglify'
-htmlmin     = require 'gulp-htmlmin'
-concat      = require 'gulp-concat'
-jade        = require 'gulp-jade'
-minifyCss   = require 'gulp-minify-css'
-ngTemplates = require 'gulp-ng-templates'
-sourcemaps  = require 'gulp-sourcemaps'
-extReplace  = require 'gulp-ext-replace'
-ngAnnotate  = require 'gulp-ng-annotate'
-pkg         = require './package.json'
+_               = require 'lodash'
+path            = require 'path'
+del             = require 'del'
+runSequence     = require 'run-sequence'
+eventStream     = require 'event-stream'
+through         = require 'through-pipes'
+minimist        = require 'minimist'
+gulp            = require 'gulp'
+gulpLoadPlugins = require 'gulp-load-plugins'
+pkg             = require './package.json'
+settings        = require './gulp/settings'
+
+options = minimist process.argv.slice(2), string: 'type'
+plugins = gulpLoadPlugins()
 
 BANNER = """
   /*
@@ -32,44 +27,9 @@ BANNER = """
 
 """
 
-# Tasks global settings
-config =
-  paths:
-    src:
-      root        : './src'
-      coffee      : [
-        # Ensures that index gets concatenated first
-        './src/index.coffee'
-        './src/**/*.coffee'
-      ]
-      css         : './src/**/*.css'
-      templates   : './src/templates/**/*.jade'
-      index       : './src/index.coffee'
-    dest:
-      root       : './dist'
-      coffee     : './dist'
-      css        : './dist'
-      templates  : './dist'
-      sourcemaps : './dist'
-
-  coffee:
-    filename: 'ng-table-async.js'
-
-  css:
-    filename: 'ng-table-async.css'
-
-  templates:
-    filename : 'ng-table-async-tpls.js'
-    module   : 'ngTableAsync'
-
-  minExtensions:
-    js   : '.min.js'
-    html : '.min.html'
-    css  : '.min.css'
-
 appendTap = (content, atStart) ->
   atStart = if _.isUndefined(atStart) then false else atStart
-  tap (file, t) ->
+  plugins.tap (file, t) ->
     str  = if _.isFunction(content) then content(file) else content
     contents = [ file.contents ]
 
@@ -87,69 +47,71 @@ footerTap = (header) -> appendTap header
 uglifyProcess = (dest, sourcemapDest) ->
   through (readable) ->
     readable
-    .pipe ngAnnotate()
-    .pipe sourcemaps.init()
-    .pipe uglify()
+    .pipe plugins.ngAnnotate()
+    .pipe plugins.sourcemaps.init()
+    .pipe plugins.uglify()
     .pipe headerTap BANNER
-    .pipe extReplace config.minExtensions.js
-    .pipe sourcemaps.write path.join('./', path.relative(dest, sourcemapDest))
+    .pipe plugins.extReplace settings.minExtensions.js
+    .pipe plugins.sourcemaps.write path.join('./', path.relative(dest, sourcemapDest))
     .pipe gulp.dest dest
 
 # Internal tasks
 gulp.task 'css', ->
-  gulp.src config.paths.src.css
-  .pipe sourcemaps.init()
-  .pipe concat config.css.filename
+  gulp.src settings.paths.src.css
+  .pipe plugins.sourcemaps.init()
+  .pipe plugins.concat settings.css.filename
   .pipe headerTap BANNER
-  .pipe gulp.dest config.paths.dest.css
-  .pipe minifyCss()
+  .pipe gulp.dest settings.paths.dest.css
+  .pipe plugins.minifyCss()
   .pipe headerTap BANNER
-  .pipe extReplace config.minExtensions.css
-  .pipe sourcemaps.write path.join('./', path.relative(config.paths.dest.css, config.paths.dest.sourcemaps))
-  .pipe gulp.dest config.paths.dest.css
+  .pipe plugins.extReplace settings.minExtensions.css
+  .pipe plugins.sourcemaps.write path.join('./', path.relative(settings.paths.dest.css, settings.paths.dest.sourcemaps))
+  .pipe gulp.dest settings.paths.dest.css
 
 gulp.task 'coffee', ->
-  gulp.src config.paths.src.coffee
-  .pipe coffee()
-  .pipe concat config.coffee.filename
+  gulp.src settings.paths.src.coffee
+  .pipe plugins.coffee()
+  .pipe plugins.concat settings.coffee.filename
   .pipe headerTap BANNER
-  .pipe gulp.dest config.paths.dest.coffee
-  .pipe uglifyProcess(config.paths.dest.coffee, config.paths.dest.sourcemaps)
+  .pipe gulp.dest settings.paths.dest.coffee
+  .pipe uglifyProcess(settings.paths.dest.coffee, settings.paths.dest.sourcemaps)
 
 gulp.task 'templates', ->
-  coffeeStream = gulp.src config.paths.src.coffee
-  .pipe coffee()
+  coffeeStream = gulp.src settings.paths.src.coffee
+  .pipe plugins.coffee()
 
-  templatesStream = gulp.src config.paths.src.templates
-  .pipe jade pretty: true
-  .pipe htmlmin collapseWhitespace: true
-  .pipe ngTemplates
+  templatesStream = gulp.src settings.paths.src.templates
+  .pipe plugins.jade pretty: true
+  .pipe plugins.htmlmin collapseWhitespace: true
+  .pipe plugins.ngTemplates
     standalone : false,
-    filename   : config.templates.filename
-    module     : config.templates.module
+    filename   : settings.templates.filename
+    module     : settings.templates.module
     path       : (path, base) ->
       path.replace(base, '').replace('/templates', '')
   .pipe headerTap '(function() {\n'
   .pipe footerTap '\n}).call(this);\n'
 
   eventStream.merge coffeeStream, templatesStream
-  .pipe concat config.templates.filename
+  .pipe plugins.concat settings.templates.filename
   .pipe headerTap BANNER
-  .pipe gulp.dest config.paths.dest.templates
-  .pipe uglifyProcess(config.paths.dest.templates, config.paths.dest.sourcemaps)
+  .pipe gulp.dest settings.paths.dest.templates
+  .pipe uglifyProcess(settings.paths.dest.templates, settings.paths.dest.sourcemaps)
 
 # Rerun the task when a file changes
 gulp.task 'watch', ->
-  gulp.watch config.paths.src.coffee,    [ 'coffee' ]
-  gulp.watch config.paths.src.css,       [ 'css' ]
+  gulp.watch settings.paths.src.coffee, [ 'coffee' ]
+  gulp.watch settings.paths.src.css,    [ 'css' ]
   gulp.watch [
-    config.paths.src.coffee,
-    config.paths.src.templates
+    settings.paths.src.coffee,
+    settings.paths.src.templates
   ], [ 'templates' ]
 
 # Public tasks
 gulp.task 'clean', (cb) ->
-  del [ config.paths.dest.root ], cb
+  del [ settings.paths.dest.root ], cb
+
+gulp.task 'releasebump', require('./gulp/releasebump')(gulp, plugins, settings, options)
 
 gulp.task 'build', [ 'coffee', 'css', 'templates' ]
 
