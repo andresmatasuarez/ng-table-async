@@ -1,6 +1,6 @@
 {
   "name": "ng-table-async",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.",
   "main": [
     "./dist/ng-table-async.css",
