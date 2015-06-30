@@ -7,7 +7,6 @@
   ],
   "description": "ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.",
   "main": [
-    "./dist/ng-table-async.js",
     "./dist/ng-table-async.css",
     "./dist/ng-table-async-tpls.js"
   ],
