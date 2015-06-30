@@ -3,6 +3,7 @@
 module.exports = {
   paths: {
     pkg: './package.json',
+    all: './*',
     src: {
       root      : './src',
       css       : './src/**/*.css',

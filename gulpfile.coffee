@@ -111,7 +111,7 @@ gulp.task 'watch', ->
 gulp.task 'clean', (cb) ->
   del [ settings.paths.dest.root ], cb
 
-gulp.task 'releasebump', require('./gulp/releasebump')(gulp, plugins, settings, options)
+gulp.task 'releasebump', require('./gulp/releasebump')(gulp, plugins, settings, _.merge(options, dependencies: [ 'build' ]))
 
 gulp.task 'build', [ 'coffee', 'css', 'templates' ]
 
