@@ -153,3 +153,4 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
           $scope.tableParams.total results[0]
           $defer.resolve results[1]
           delete $scope.loading
+          $defer.promise
