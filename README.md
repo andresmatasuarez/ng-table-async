@@ -6,7 +6,7 @@ It's specially useful for backoffice/dashboard developers, so they can come out 
 
 This module **in no way** intends to be a replacement for **ngTable**, but an enhancement. If it doesn't satisfy your needs, submit a feature PR or go back to **ngTable** :).
 
-[Integral demo](http://plnkr.co/edit/3PYJbl3fCkDfLsLmZzMp)
+[Homepage](https://andresmatasuarez.github.io/ng-table-async/)
 
 ## Index
 1. [Requirements](#requirements)
@@ -201,7 +201,7 @@ $scope.tableOptions = {
 ```
 
 ## Examples
-  TODO Write examples for each config
+  You can view a variety of usage examples in [ngTableAsync homepage](https://andresmatasuarez.github.io/ng-table-async/).
 
 ## Development
 1. Fork repo
