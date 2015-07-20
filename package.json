@@ -6,7 +6,10 @@
     "./dist/ng-table-async.css",
     "./dist/ng-table-async-tpls.js"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "angular": "^1.4.3",
+    "ng-table": "^0.5.4"
+  },
   "devDependencies": {
     "angular-ui-publisher": "^1.2.8",
     "coffee-script": "^1.9.3",
