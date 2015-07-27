@@ -94,7 +94,7 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat=\"item in $data\">
+                  <tr ng-repeat=\"item in $data track by $index\">
                     #{ compiledContents.join(' ') }
                   </tr>
                 </tbody>

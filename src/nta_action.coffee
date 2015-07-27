@@ -17,7 +17,7 @@ parseDialogAttribute = (d) ->
       params[dialog.params] = item
       params
 
-  dialog.params = (item) -> item: item
+  dialog.params = (item, index) -> item: item, index: index
 
   dialog
 
@@ -58,10 +58,10 @@ module.directive 'ntaAction', (ngTableAsyncDefaults) ->
     else
       $scope.style = "btn-#{defaults.DEFAULT_VALUES.NTA_ACTION_STYLE}"
 
-    performAction = (item) ->
+    performAction = (item, index) ->
       $scope.mainScope.loading = true
       $q.when()
-      .then    -> method(item)
+      .then    -> method(item, index)
       .then    -> $scope.tableParams.reload() if reload
       .finally -> delete $scope.mainScope.loading
 
@@ -71,8 +71,8 @@ module.directive 'ntaAction', (ngTableAsyncDefaults) ->
         $modal = $injector.get '$modal'
 
         # AngularUI Bootstrap Modal module is available
-        performActionWithDialog = (item) ->
-          params = dialog.params item
+        performActionWithDialog = (item, index) ->
+          params = dialog.params item, index
 
           # Launch modal
           modalScope = _.merge $scope.$new(true), params
@@ -83,7 +83,7 @@ module.directive 'ntaAction', (ngTableAsyncDefaults) ->
           # Handle result
           modalInstance.result
           .then ->
-            performAction item
+            performAction item, index
           .catch ->
             if dialog and dialog.onCancel
               dialog.onCancel item, params
@@ -96,4 +96,4 @@ module.directive 'ntaAction', (ngTableAsyncDefaults) ->
     else
       triggerAction = performAction
 
-    $scope.do = -> triggerAction $scope.item
+    $scope.do = -> triggerAction $scope.item, $scope.$index
