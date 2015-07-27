@@ -2,7 +2,7 @@
  * ng-table-async
  * ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.
  * @author  Andrés Mata Suárez <amatasuarez@gmail.com>
- * @version 0.0.3
+ * @version 0.0.6
  * @link    https://andresmatasuarez.github.io/ng-table-async
  * @license MIT
  */
@@ -94,14 +94,15 @@
         } else {
           loadingTemplate = "<nta-loading></nta-loading>";
         }
-        return "<div class=\"container-fluid nta-container\" ng-show=\"tableParams.total()\"> <div class=\"row\"> <div class=\"col-md-12\"> <div ng-if=\"options.pagerOnTop\"> " + pagerTemplate + " </div> <div class=\"nta-content row\"> <div class=\"panel panel-default\"> <table ng-table=\"tableParams\" class=\"table ng-table ng-table-responsive nta-table\"> <thead> <tr> " + (compiledHeaders.join(' ')) + " </tr> </thead> <tbody> <tr ng-repeat=\"item in $data\"> " + (compiledContents.join(' ')) + " </tr> </tbody> </table> </div> <div ng-show=\"loading\" class=\"nta-loading-container\"> " + loadingTemplate + " </div> </div> <div ng-if=\"options.pagerOnBottom\"> " + pagerTemplate + " </div> </div> </div> </div> <div class=\"container-fluid no-data-container\" ng-show=\"!tableParams.total()\"> " + ndaTemplate + " </div>";
+        return "<div class=\"container-fluid nta-container\" ng-show=\"options.headerIfEmpty || tableParams.total()\">\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n\n      <div ng-if=\"options.pagerOnTop\">\n        " + pagerTemplate + "\n      </div>\n\n      <div class=\"nta-content row\">\n        <div class=\"panel panel-default\">\n          <table ng-table=\"tableParams\" class=\"table ng-table ng-table-responsive nta-table\">\n            <thead>\n              <tr>\n                " + (compiledHeaders.join(' ')) + "\n              </tr>\n            </thead>\n\n            <tbody>\n              <tr ng-repeat=\"item in $data track by $index\">\n                " + (compiledContents.join(' ')) + "\n              </tr>\n\n              <tr class=\"no-data-container\" ng-show=\"!tableParams.total()\">\n                <td colspan=\"" + compiledHeaders.length + "\">" + ndaTemplate + "</td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n\n        <div ng-show=\"loading\" class=\"nta-loading-container\">\n          " + loadingTemplate + "\n        </div>\n\n      </div>\n\n      <div ng-if=\"options.pagerOnBottom\">\n        " + pagerTemplate + "\n      </div>\n\n    </div>\n  </div>\n\n</div>\n\n<div class=\"container-fluid no-data-container\" ng-if=\"!options.headerIfEmpty\" ng-show=\"!tableParams.total()\">\n  " + ndaTemplate + "\n</div>\n";
       },
-      controller: function($scope, $element, ngTableAsyncDefaults) {
+      controller: function($scope, $element, $q, ngTableAsyncDefaults) {
         $scope.options = _.merge({
           pagerOnTop: ngTableAsyncDefaults.PAGER_ON_TOP,
           pagerOnBottom: ngTableAsyncDefaults.PAGER_ON_BOTTOM,
           defaultPage: ngTableAsyncDefaults.DEFAULT_PAGE,
-          pageSize: ngTableAsyncDefaults.PAGE_SIZE
+          pageSize: ngTableAsyncDefaults.PAGE_SIZE,
+          headerIfEmpty: ngTableAsyncDefaults.HEADER_IF_EMPTY
         }, $scope.options);
         $scope.mainScope = $scope;
         return $scope.tableParams = new ngTableParams({
@@ -110,11 +111,15 @@
         }, {
           $scope: $scope,
           getData: function($defer, params) {
-            var limit, skip;
+            var limit, pagePromise, skip;
             $scope.loading = true;
             skip = (params.page() - 1) * params.count();
             limit = params.count();
-            return $scope.options.getPage(skip, limit).then(function(results) {
+            pagePromise = $scope.options.getPage(skip, limit);
+            if (!pagePromise.then) {
+              pagePromise = $q.all(pagePromise);
+            }
+            return pagePromise.then(function(results) {
               $scope.tableParams.total(results[0]);
               $defer.resolve(results[1]);
               delete $scope.loading;
@@ -148,6 +153,7 @@
     NO_DATA_TEXT: 'No available results to show',
     PAGER_ON_TOP: false,
     PAGER_ON_BOTTOM: true,
+    HEADER_IF_EMPTY: true,
     SUPPORTED_VALUES: {
       NTA_ACTION_SIZE: ['xs', 'sm', 'lg'],
       NTA_ACTION_STYLE: ['default', 'primary', 'success', 'info', 'warning', 'danger', 'link']
@@ -197,9 +203,10 @@
         return params;
       };
     }
-    dialog.params = function(item) {
+    dialog.params = function(item, index) {
       return {
-        item: item
+        item: item,
+        index: index
       };
     };
     return dialog;
@@ -245,10 +252,10 @@
         } else {
           $scope.style = "btn-" + defaults.DEFAULT_VALUES.NTA_ACTION_STYLE;
         }
-        performAction = function(item) {
+        performAction = function(item, index) {
           $scope.mainScope.loading = true;
           return $q.when().then(function() {
-            return method(item);
+            return method(item, index);
           }).then(function() {
             if (reload) {
               return $scope.tableParams.reload();
@@ -260,16 +267,16 @@
         if (!_.isEmpty(action.dialog)) {
           try {
             $modal = $injector.get('$modal');
-            performActionWithDialog = function(item) {
+            performActionWithDialog = function(item, index) {
               var modalInstance, modalScope, params;
-              params = dialog.params(item);
+              params = dialog.params(item, index);
               modalScope = _.merge($scope.$new(true), params);
               modalInstance = $modal.open({
                 templateUrl: dialog.templateUrl,
                 scope: modalScope
               });
               return modalInstance.result.then(function() {
-                return performAction(item);
+                return performAction(item, index);
               })["catch"](function() {
                 if (dialog && dialog.onCancel) {
                   return dialog.onCancel(item, params);
@@ -285,7 +292,7 @@
           triggerAction = performAction;
         }
         return $scope["do"] = function() {
-          return triggerAction($scope.item);
+          return triggerAction($scope.item, $scope.$index);
         };
       }
     };
