@@ -76,8 +76,8 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
     # but there is no blocking way to load it.
     # Sadly, this function cannot return a promise, so
     # the $templateRequest alternative becomes useless.
-    "
-    <div class=\"container-fluid nta-container\" ng-show=\"tableParams.total()\">
+    """
+    <div class=\"container-fluid nta-container\" ng-show=\"options.headerIfEmpty || tableParams.total()\">
       <div class=\"row\">
         <div class=\"col-md-12\">
 
@@ -93,9 +93,14 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
                     #{ compiledHeaders.join(' ') }
                   </tr>
                 </thead>
+
                 <tbody>
                   <tr ng-repeat=\"item in $data track by $index\">
                     #{ compiledContents.join(' ') }
+                  </tr>
+
+                  <tr class=\"no-data-container\" ng-show=\"!tableParams.total()\">
+                    <td colspan=\"#{ compiledHeaders.length }\">#{ ndaTemplate }</td>
                   </tr>
                 </tbody>
               </table>
@@ -116,11 +121,11 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
 
     </div>
 
-    <div class=\"container-fluid no-data-container\" ng-show=\"!tableParams.total()\">
+    <div class=\"container-fluid no-data-container\" ng-if=\"!options.headerIfEmpty\" ng-show=\"!tableParams.total()\">
       #{ ndaTemplate }
     </div>
 
-    "
+    """
 
   controller: ($scope, $element, $q, ngTableAsyncDefaults) ->
 
@@ -129,6 +134,7 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
       pagerOnBottom : ngTableAsyncDefaults.PAGER_ON_BOTTOM
       defaultPage   : ngTableAsyncDefaults.DEFAULT_PAGE
       pageSize      : ngTableAsyncDefaults.PAGE_SIZE
+      headerIfEmpty : ngTableAsyncDefaults.HEADER_IF_EMPTY
     , $scope.options
 
     $scope.mainScope = $scope

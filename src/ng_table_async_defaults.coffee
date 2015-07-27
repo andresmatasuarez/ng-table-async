@@ -14,6 +14,7 @@ module.value 'ngTableAsyncDefaults',
   NO_DATA_TEXT       : 'No available results to show'
   PAGER_ON_TOP       : false
   PAGER_ON_BOTTOM    : true
+  HEADER_IF_EMPTY    : true
 
   SUPPORTED_VALUES   :
     NTA_ACTION_SIZE  : [ 'xs', 'sm', 'lg' ]
