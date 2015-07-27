@@ -122,13 +122,13 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
 
     "
 
-  controller: ($scope, $element, ngTableAsyncDefaults) ->
+  controller: ($scope, $element, $q, ngTableAsyncDefaults) ->
 
     $scope.options = _.merge
-      pagerOnTop         : ngTableAsyncDefaults.PAGER_ON_TOP
-      pagerOnBottom      : ngTableAsyncDefaults.PAGER_ON_BOTTOM
-      defaultPage        : ngTableAsyncDefaults.DEFAULT_PAGE
-      pageSize           : ngTableAsyncDefaults.PAGE_SIZE
+      pagerOnTop    : ngTableAsyncDefaults.PAGER_ON_TOP
+      pagerOnBottom : ngTableAsyncDefaults.PAGER_ON_BOTTOM
+      defaultPage   : ngTableAsyncDefaults.DEFAULT_PAGE
+      pageSize      : ngTableAsyncDefaults.PAGE_SIZE
     , $scope.options
 
     $scope.mainScope = $scope
@@ -148,7 +148,10 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
         skip = (params.page() - 1) * params.count()
         limit = params.count()
 
-        $scope.options.getPage skip, limit
+        pagePromise = $scope.options.getPage skip, limit
+        pagePromise = $q.all(pagePromise) if not pagePromise.then
+
+        pagePromise
         .then (results) ->
           $scope.tableParams.total results[0]
           $defer.resolve results[1]
