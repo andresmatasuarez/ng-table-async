@@ -154,10 +154,11 @@ To render the pagination markup template. Supports the following attribute confi
 Of course, `tableOptions` should be exposed in the scope where **ngTableAsync** is being created, and it can contain any of the following properties:
 ```javascript
 $scope.tableOptions = {
-  defaultPage   : 3,     // Default selected page.     Defaults to 1.
-  pageSize      : 5,     // Table page size.           Defaults to 10.
-  pagerOnTop    : true,  // Enable pager above table.  Defaults to false.
-  pagerOnBottom : false, // Enable pager below table.  Defaults to true.
+  defaultPage   : 3,     // Default selected page.                        Defaults to 1.
+  pageSize      : 5,     // Table page size.                              Defaults to 10.
+  pagerOnTop    : true,  // Enable pager above table.                     Defaults to false.
+  pagerOnBottom : false, // Enable pager below table.                     Defaults to true.
+  headerIfEmpty : false, // Do not hide table header when table is empty. Defaults to true.
 
   // REQUIRED
   // Function to retrieve current page's data, in terms of 'skip' and 'limit' params
