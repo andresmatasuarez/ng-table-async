@@ -2,7 +2,7 @@
  * ng-table-async
  * ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.
  * @author  Andrés Mata Suárez <amatasuarez@gmail.com>
- * @version 0.0.6
+ * @version 0.0.8
  * @link    https://andresmatasuarez.github.io/ng-table-async
  * @license MIT
  */
@@ -105,7 +105,7 @@
           headerIfEmpty: ngTableAsyncDefaults.HEADER_IF_EMPTY
         }, $scope.options);
         $scope.mainScope = $scope;
-        return $scope.tableParams = new ngTableParams({
+        $scope.tableParams = new ngTableParams({
           page: $scope.options.defaultPage,
           count: $scope.options.pageSize
         }, {
@@ -126,6 +126,12 @@
               return $defer.promise;
             });
           }
+        });
+        return $scope.$on('ng-table-async:reload', function() {
+          $scope.loading = true;
+          return $scope.tableParams.reload().then(function() {
+            return delete $scope.loading;
+          });
         });
       }
     };
