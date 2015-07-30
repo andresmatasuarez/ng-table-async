@@ -163,3 +163,9 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
           $defer.resolve results[1]
           delete $scope.loading
           $defer.promise
+
+    $scope.$on 'ng-table-async:reload', ->
+      $scope.loading = true
+      $scope.tableParams.reload()
+      .then ->
+        delete $scope.loading
