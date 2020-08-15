@@ -6,6 +6,9 @@
     "./dist/ng-table-async.css",
     "./dist/ng-table-async-tpls.js"
   ],
+  "files": [
+    "/dist"
+  ],
   "peerDependencies": {
     "angular": "^1.4.3",
     "ng-table": "^0.5.4"
