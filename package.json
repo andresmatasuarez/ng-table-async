@@ -1,6 +1,6 @@
 {
   "name": "ng-table-async",
-  "version": "0.0.20",
+  "version": "0.0.11",
   "description": "ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.",
   "main": [
     "./dist/ng-table-async.css",
@@ -39,7 +39,7 @@
   "scripts": {
     "build": "gulp build",
     "release": "gulp releasebump",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "repository": {
     "type": "git",
