@@ -33,15 +33,14 @@ module.exports = (gulp, plugins, settings, options) ->
   options      = options || {}
   options.type = options.type || 'patch'
 
-  dependenciesBeforeCommit = options.dependencies || []
-
   getPackageVersion = ->
     # We parse the json file instead of using require because require caches multiple calls so the version number won't be updated
     JSON.parse(fs.readFileSync settings.paths.pkg, 'utf8').version;
 
   gulp.task 'commit', ->
     gulp.src settings.paths.all
-    .pipe plugins.git.commit VERSION_BUMPED, args: '-a'
+    .pipe plugins.git.add()
+    .pipe plugins.git.commit VERSION_BUMPED
 
   gulp.task 'push', (cb) ->
     plugins.git.push 'origin', 'master', cb
@@ -57,11 +56,4 @@ module.exports = (gulp, plugins, settings, options) ->
     .pipe plugins.bump type: options.type
     .pipe gulp.dest settings.paths.dest.bump
 
-  (cb) ->
-    runSequence 'bump', dependenciesBeforeCommit, 'commit', 'push', 'push-tag', (error) ->
-      if error
-        console.log error.message
-      else
-        console.log RELEASE_SUCCESSFUL
-
-      cb error
+  gulp.task 'releasebump', gulp.series('bump', 'build', 'commit', 'push', 'push-tag')

@@ -2,7 +2,7 @@
  * ng-table-async
  * ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.
  * @author  Andrés Mata Suárez <amatasuarez@gmail.com>
- * @version 0.0.8
+ * @version 0.0.11
  * @link    https://andresmatasuarez.github.io/ng-table-async
  * @license MIT
  */
@@ -179,13 +179,6 @@
 }).call(this);
 
 (function() {
-angular.module("ngTableAsync").run(["$templateCache", function($templateCache) {$templateCache.put("_ng_table_async_action.html","<button type=\"button\" ng-click=\"do()\" class=\"btn {{size}} {{style}}\"><span ng-if=\"icon\"><span class=\"{{icon}}\"></span><span ng-if=\"label\">&nbsp;</span></span><span ng-bind=\"label\"></span></button>");
-$templateCache.put("_ng_table_async_loading.html","<div class=\"nta-loading\"><div class=\"nta-loading-loader\"><i class=\"glyphicon glyphicon-refresh nta-loading-spinner\"></i></div></div>");
-$templateCache.put("_ng_table_async_no_data.html","<h2 ng-bind=\"text\" class=\"text-muted text-center\"></h2>");
-$templateCache.put("_ng_table_async_pager.html","<div class=\"text-center\"><ul class=\"pagination ng-table-pagination\"><li ng-repeat=\"page in pages\" ng-class=\"{\'disabled active\': !page.active, \'previous\': page.type == \'prev\', \'next\': page.type == \'next\'}\" ng-switch=\"page.type\"><a ng-switch-when=\"prev\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a><a ng-switch-when=\"next\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a><a ng-switch-when=\"more\" ng-click=\"params.page(page.number)\" href=\"\">...</a><a ng-switch-default=\"\" ng-click=\"params.page(page.number)\" href=\"\">{{ page.number }}</a></li></ul></div>");}]);
-}).call(this);
-
-(function() {
   'use strict';
   var module, parseDialogAttribute,
     indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -297,8 +290,8 @@ $templateCache.put("_ng_table_async_pager.html","<div class=\"text-center\"><ul 
               });
             };
             triggerAction = performActionWithDialog;
-          } catch (_error) {
-            error = _error;
+          } catch (error1) {
+            error = error1;
             triggerAction = performAction;
           }
         } else {
@@ -311,6 +304,13 @@ $templateCache.put("_ng_table_async_pager.html","<div class=\"text-center\"><ul 
     };
   });
 
+}).call(this);
+
+(function() {
+angular.module("ngTableAsync").run(["$templateCache", function($templateCache) {$templateCache.put("/_ng_table_async_action.html","<button class=\"btn {{size}} {{style}}\" type=\"button\" ng-click=\"do()\"><span ng-if=\"icon\"><span class=\"{{icon}}\"></span><span ng-if=\"label\">&nbsp;</span></span><span ng-bind=\"label\"></span></button>");
+$templateCache.put("/_ng_table_async_loading.html","<div class=\"nta-loading\"><div class=\"nta-loading-loader\"><i class=\"glyphicon glyphicon-refresh nta-loading-spinner\"></i></div></div>");
+$templateCache.put("/_ng_table_async_no_data.html","<h2 class=\"text-muted text-center\" ng-bind=\"text\"></h2>");
+$templateCache.put("/_ng_table_async_pager.html","<div class=\"text-center\"><ul class=\"pagination ng-table-pagination\"><li ng-repeat=\"page in pages\" ng-class=\"{\'disabled active\': !page.active, \'previous\': page.type == \'prev\', \'next\': page.type == \'next\'}\" ng-switch=\"page.type\"><a ng-switch-when=\"prev\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a><a ng-switch-when=\"next\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a><a ng-switch-when=\"more\" ng-click=\"params.page(page.number)\" href=\"\">...</a><a ng-switch-default=\"\" ng-click=\"params.page(page.number)\" href=\"\">{{ page.number }}</a></li></ul></div>");}]);
 }).call(this);
 
 (function() {

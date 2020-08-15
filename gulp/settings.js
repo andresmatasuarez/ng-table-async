@@ -7,7 +7,7 @@ module.exports = {
     src: {
       root      : './src',
       css       : './src/**/*.css',
-      templates : './src/templates/**/*.jade',
+      templates : './src/templates/**/*.pug',
       index     : './src/index.coffee',
       bump      : [ './package.json', './bower.json' ],
       coffee    : [ './src/index.coffee', './src/**/*.coffee' ]
