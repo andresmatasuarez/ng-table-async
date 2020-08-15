@@ -212,6 +212,7 @@ $scope.tableOptions = {
 4. Write contribution
 5. Write tests
 6. Submit Pull Request
+7. Use [np](https://www.npmjs.com/package/np) to publish package to NPM.
 
 ## TODO
 * Tests
