@@ -2,7 +2,7 @@
  * ng-table-async
  * ngTable wrapper that offers some basic functionality and abstractions for working with asynchronous tables.
  * @author  Andrés Mata Suárez <amatasuarez@gmail.com>
- * @version 0.0.18
+ * @version 0.0.19
  * @link    https://andresmatasuarez.github.io/ng-table-async
  * @license MIT
  */

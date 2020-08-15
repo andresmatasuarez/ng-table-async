@@ -56,4 +56,4 @@ module.exports = (gulp, plugins, settings, options) ->
     .pipe plugins.bump type: options.type
     .pipe gulp.dest settings.paths.dest.bump
 
-  gulp.task 'releasebump', gulp.series('bump', 'build', 'commit')#, 'push', 'push-tag')
+  gulp.task 'releasebump', gulp.series('bump', 'build', 'commit', 'push', 'push-tag')
