@@ -28,18 +28,16 @@ This module **in no way** intends to be a replacement for **ngTable**, but an en
 * [UI.Bootstrap](https://angular-ui.github.io/bootstrap)
 
 ## Installation
-1. Install with **[Bower](http://bower.io/)**:<br />
-`bower install ng-table-async`
-2. Include dependency files in your markup:
+1. Include dependency files in your markup:
   * `<link rel="stylesheet" href="bootstrap.css">`
   * `<script src="lodash.js"></script>`
   * `<script src="angular.js"></script>`
   * `<script src="ui-boostrap.js"></script>`
   * `<script src="ng-table.js"></script>`
-3. Include **ngTableAsync** files in your markup:
+2. Include **ngTableAsync** files in your markup:
   * `<link rel="stylesheet" href="ng-table-async.css"></script>`
   * `<script src="ng-table-async.js"></script>`
-4. Include **ngTableAsync** as a module dependency in your **AngularJS** app:<br />
+3. Include **ngTableAsync** as a module dependency in your **AngularJS** app:<br />
 `angular.module('myApp', [ ... 'ngTableAsync' ... ])`
 
 > NOTE: `ng-table-async.js` contains the raw **ngTableAsync** module, whereas `ng-table-async-tpls.js` also includes default directives' templates.
@@ -206,18 +204,18 @@ $scope.tableOptions = {
 
 ## Development
 1. Fork repo
-2. `npm install && bower install`
+2. `npm install`
 3. `npm install gulp -g`
 4. `gulp` - Watches for changes in `src` directory and reruns tasks on each modified file. Outputs are in `dist` directory.
 4. Write contribution
 5. Write tests
 6. Submit Pull Request
-7. Build and release using [np](https://www.npmjs.com/package/np) to publish package to NPM:
+7. Build and release:
 ```
 npm run build
 git add .
 git commit "New release files"
-np
+npm run release
 ```
 
 ## TODO

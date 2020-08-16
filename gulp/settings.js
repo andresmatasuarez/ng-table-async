@@ -9,7 +9,6 @@ module.exports = {
       css       : './src/**/*.css',
       templates : './src/templates/**/*.pug',
       index     : './src/index.coffee',
-      bump      : [ './package.json', './bower.json' ],
       coffee    : [ './src/index.coffee', './src/**/*.coffee' ]
     },
     dest: {
@@ -17,8 +16,7 @@ module.exports = {
       coffee     : './dist',
       css        : './dist',
       templates  : './dist',
-      sourcemaps : './dist',
-      bump       : './'
+      sourcemaps : './dist'
     }
   },
 
