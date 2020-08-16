@@ -7,7 +7,7 @@
     "./dist/ng-table-async-tpls.js"
   ],
   "files": [
-    "/dist"
+    "/dist/*"
   ],
   "peerDependencies": {
     "angular": "^1.4.3",
