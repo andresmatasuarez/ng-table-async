@@ -10,7 +10,6 @@ gulp                 = require 'gulp'
 gulpLoadPlugins      = require 'gulp-load-plugins'
 pkg                  = require './package.json'
 settings             = require './gulp/settings'
-loadReleaseBumpTasks = require('./gulp/releasebump')
 
 options = minimist process.argv.slice(2), string: 'type'
 plugins = gulpLoadPlugins()
@@ -130,7 +129,5 @@ gulp.task 'clean', ->
   del [ settings.paths.dest.root ]
 
 gulp.task 'build', gulp.parallel('coffee', 'css', 'templates')
-
-loadReleaseBumpTasks(gulp, plugins, settings, _.merge(options, dependencies: gulp.series('build')))
 
 gulp.task 'default', gulp.series('clean', 'build', 'watch')
