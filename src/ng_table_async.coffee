@@ -139,16 +139,11 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
 
     $scope.mainScope = $scope
 
-    $scope.tableParams = new ngTableParams
+    $scope.tableParams = new NgTableParams
       page  : $scope.options.defaultPage
       count : $scope.options.pageSize
     ,
-      # '$scope: $scope' line added to avoid
-      # "TypeError: Cannot read property '$on' of null"
-      # src: https://github.com/esvit/ng-table/issues/182
-      $scope: $scope
-
-      getData: ($defer, params) ->
+      getData: (params) ->
         $scope.loading = true
 
         skip = (params.page() - 1) * params.count()
@@ -160,9 +155,8 @@ module.directive 'ngTableAsync', ($q, ngTableParams) ->
         pagePromise
         .then (results) ->
           $scope.tableParams.total results[0]
-          $defer.resolve results[1]
           delete $scope.loading
-          $defer.promise
+          results[1]
 
     $scope.$on 'ng-table-async:reload', ->
       $scope.loading = true
