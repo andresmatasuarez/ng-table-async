@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "gulp build",
-    "release": "np",
+    "release": "npm run build && np",
     "test": "echo \"Error: no test specified\""
   },
   "repository": {
