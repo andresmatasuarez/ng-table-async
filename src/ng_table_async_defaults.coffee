@@ -25,7 +25,7 @@ module.value 'ngTableAsyncDefaults',
     NTA_ACTION_STYLE : 'default'
 
   DEFAULT_TEMPLATES  :
-    NTA_ACTION       : '_ng_table_async_action.html'
-    NTA_LOADING      : '_ng_table_async_loading.html'
-    NTA_NO_DATA      : '_ng_table_async_no_data.html'
-    NTA_PAGER        : '_ng_table_async_pager.html'
+    NTA_ACTION       : '/_ng_table_async_action.html'
+    NTA_LOADING      : '/_ng_table_async_loading.html'
+    NTA_NO_DATA      : '/_ng_table_async_no_data.html'
+    NTA_PAGER        : '/_ng_table_async_pager.html'
