@@ -40,7 +40,7 @@ parseColumn = (column) ->
   @description
   ngTable wrapper directive that offers some basic functionality for working with asynchronous tables.
 ###
-module.directive 'ngTableAsync', ($q, ngTableParams) ->
+module.directive 'ngTableAsync', () ->
   restrict: 'E'
   scope:
     options: '='
