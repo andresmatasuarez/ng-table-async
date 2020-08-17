@@ -127,7 +127,7 @@ module.directive 'ngTableAsync', () ->
 
     """
 
-  controller: ($scope, $element, $q, ngTableAsyncDefaults) ->
+  controller: ($scope, $element, $q, ngTableAsyncDefaults, NgTableParams) ->
 
     $scope.options = _.merge
       pagerOnTop    : ngTableAsyncDefaults.PAGER_ON_TOP
